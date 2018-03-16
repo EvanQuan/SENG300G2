@@ -1,9 +1,10 @@
 package main;
 
 /**
- * Represents a Java file. Contains file name, path, and source code.
+ * Represents a .java file. Contains file name, path, and source code.
  * 
  * @author Evan Quan
+ * @version 1.0.1
  * @since March 16, 2018
  *
  */
@@ -56,7 +57,7 @@ public class JavaFile implements Comparable<JavaFile> {
 	 * @return name without file extension
 	 */
 	public String getSimpleName() {
-		return name.substring(0, name.length() - EXTENSION.length() - 1);
+		return name.substring(0, name.length() - EXTENSION.length());
 	}
 
 	/**
@@ -67,6 +68,10 @@ public class JavaFile implements Comparable<JavaFile> {
 		return source;
 	}
 
+	/**
+	 * 
+	 * @return path of Java file
+	 */
 	public String getPath() {
 		return path;
 	}
@@ -107,7 +112,7 @@ public class JavaFile implements Comparable<JavaFile> {
 	 */
 	@Override
 	public String toString() {
-		return "[JavaFile | name: " + name + " | path: " + path + " ]\n" + source;
+		return "[class: JavaFile | name: " + name + " | path: " + path + "]\n" + source;
 	}
 
 	/**

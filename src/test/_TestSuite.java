@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({})
+@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class })
 
 /**
  * Runs all test classes

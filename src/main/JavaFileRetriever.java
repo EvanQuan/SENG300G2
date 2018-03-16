@@ -14,12 +14,16 @@ import java.util.Collections;
  * Retrieves source code from Java files.
  *
  * @author Evan Quan
+ * @version 1.0.0
  * @since March 16, 2018
  */
 public class JavaFileRetriever {
 
 	private static JavaFileRetriever retriever = new JavaFileRetriever();
 
+	/**
+	 * Cannot be instantiated outside of
+	 */
 	private JavaFileRetriever() {
 	}
 
@@ -32,7 +36,8 @@ public class JavaFileRetriever {
 	}
 
 	/**
-	 * Finds all Java files in a given directory and inner directories
+	 * Retrieves all Java files in a given directory and sub-directories and returns
+	 * their contents as Strings in an ArrayList
 	 *
 	 * @param path
 	 *            of directory of interest
@@ -53,11 +58,12 @@ public class JavaFileRetriever {
 	}
 
 	/**
-	 * Reads the contents of all Java files in a given directory and returns their
-	 * contents as Strings in an ArrayList
-	 *
+	 * Recursively finds and all Java files and appends them to javaFiles ArrayList
+	 * 
 	 * @param path
 	 *            of directory of interest
+	 * @param javaFiles
+	 *            to append Java files to
 	 * @return contents of all Java files as Strings
 	 * @throws DirectoryNotFoundException
 	 *             if directory cannot be found
@@ -103,7 +109,7 @@ public class JavaFileRetriever {
 	 * @throws IOException
 	 *             if file is not able to be read
 	 */
-	public String getFileContents(String path) throws IOException {
+	private String getFileContents(String path) throws IOException {
 		FileReader fileReader = new FileReader(path);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		StringBuffer stringBuffer = new StringBuffer();
