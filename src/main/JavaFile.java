@@ -2,9 +2,9 @@ package main;
 
 /**
  * Represents a .java file. Contains file name, path, and source code.
- * 
+ *
  * @author Evan Quan
- * @version 1.0.1
+ * @version 1.0.2
  * @since March 16, 2018
  *
  */
@@ -20,21 +20,8 @@ public class JavaFile implements Comparable<JavaFile> {
 	private String source;
 
 	/**
-	 * Complete constructor for JavaFile
-	 * 
-	 * @param name
-	 * @param path
-	 * @param source
-	 */
-	public JavaFile(String name, String path, String source) {
-		setName(name);
-		setPath(path);
-		setSource(source);
-	}
-
-	/**
 	 * Clone constructor for JavaFile
-	 * 
+	 *
 	 * @param file
 	 *            to clone
 	 */
@@ -45,74 +32,16 @@ public class JavaFile implements Comparable<JavaFile> {
 	}
 
 	/**
-	 * 
-	 * @return name with file extension
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 
-	 * @return name without file extension
-	 */
-	public String getSimpleName() {
-		return name.substring(0, name.length() - EXTENSION.length());
-	}
-
-	/**
-	 * 
-	 * @return source code of Java file
-	 */
-	public String getSource() {
-		return source;
-	}
-
-	/**
-	 * 
-	 * @return path of Java file
-	 */
-	public String getPath() {
-		return path;
-	}
-
-	/**
-	 * 
+	 * Complete constructor for JavaFile
+	 *
 	 * @param name
-	 *            of Java file
-	 */
-	public void setName(String name) {
-		if (!name.endsWith(EXTENSION)) {
-			// Add extension if it doesn't have it
-			name.concat(EXTENSION);
-		}
-		this.name = name;
-	}
-
-	/**
-	 * 
 	 * @param path
-	 *            to Java file
-	 */
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	/**
-	 * 
 	 * @param source
-	 *            of Java file
 	 */
-	public void setSource(String source) {
-		this.source = source;
-	}
-
-	/**
-	 * String representation of JavaFile
-	 */
-	@Override
-	public String toString() {
-		return "[class: JavaFile | name: " + name + " | path: " + path + "]\n" + source;
+	public JavaFile(String name, String path, String source) {
+		setName(name);
+		setPath(path);
+		setSource(source);
 	}
 
 	/**
@@ -127,6 +56,77 @@ public class JavaFile implements Comparable<JavaFile> {
 		} else {
 			return compareName;
 		}
+	}
+
+	/**
+	 *
+	 * @return name with file extension
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 *
+	 * @return path of Java file
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 *
+	 * @return name without file extension
+	 */
+	public String getSimpleName() {
+		return name.substring(0, name.length() - EXTENSION.length());
+	}
+
+	/**
+	 *
+	 * @return source code of Java file
+	 */
+	public String getSource() {
+		return source;
+	}
+
+	/**
+	 *
+	 * @param name
+	 *            of Java file
+	 */
+	public void setName(String name) {
+		if (!name.endsWith(EXTENSION)) {
+			// Add extension if it doesn't have it
+			name = name.concat(EXTENSION);
+		}
+		this.name = name;
+	}
+
+	/**
+	 *
+	 * @param path
+	 *            to Java file
+	 */
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	/**
+	 *
+	 * @param source
+	 *            of Java file
+	 */
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	/**
+	 * String representation of JavaFile
+	 */
+	@Override
+	public String toString() {
+		return "[class: JavaFile | name: " + name + " | path: " + path + "]\n" + source;
 	}
 
 }
