@@ -112,23 +112,23 @@ public class TypeFinder {
 		// - Turn the contents of a .class file into a IClassFile/ICompilationUnit
 		// - Something that may involve IFile, File class?
 
-		// .class -> File
-		// File classFile = new File("class path??");
+		 .class -> File
+		 File classFile = new File("class path??");
 
-		// File -> IFile
-		// https://stackoverflow.com/questions/960746/how-to-convert-from-file-to-ifile-in-java-for-files-outside-the-project
-		// http://exploreeclipse.blogspot.ca/2014/08/converting-java-io-file-to-eclipse.html
-		// https://wiki.eclipse.org/FAQ_How_do_I_open_an_editor_on_a_file_outside_the_workspace%3F
-		// <--- THIS
+		 File -> IFile
+		 https://stackoverflow.com/questions/960746/how-to-convert-from-file-to-ifile-in-java-for-files-outside-the-project
+		 http://exploreeclipse.blogspot.ca/2014/08/converting-java-io-file-to-eclipse.html
+		 https://wiki.eclipse.org/FAQ_How_do_I_open_an_editor_on_a_file_outside_the_workspace%3F
+		 <--- THIS
 
-		// IFile -> IClassFile
-		// IClassFile ifile = JavaCore.createClassFileFrom(IFile file)
-		// https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fjdt%2Fcore%2FJavaCore.html
+		 IFile -> IClassFile
+		 IClassFile ifile = JavaCore.createClassFileFrom(IFile file)
+		 https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fjdt%2Fcore%2FJavaCore.html
 
-		// Figure out what to set as source.
-		// IClassFile?
-		// What about other settings? Are they the same?
-		// setKind still CompilationUnit?
+		 Figure out what to set as source.
+		 IClassFile?
+		 What about other settings? Are they the same?
+		 setKind still CompilationUnit?
 
 		return null;
 	}
