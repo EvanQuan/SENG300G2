@@ -99,12 +99,11 @@ public class TypeVisitor extends ASTVisitor {
 	 * Default constructor. Initialize the list of types, and the HashMaps for the
 	 * counters to null.
 	 */
-	public TypeVisitor(ArrayList<String> types, HashMap<String, Integer> declarations,
-			HashMap<String, Integer> references) {
+	public TypeVisitor() {
 		// Track all type information from external trackers
-		this.types = types;
-		this.declarations = declarations;
-		this.references = references;
+		this.types = new ArrayList<String>();
+		this.declarations = new HashMap<String, Integer>();
+		this.references = new HashMap<String, Integer>();
 	}
 
 	/**
@@ -112,31 +111,30 @@ public class TypeVisitor extends ASTVisitor {
 	 *
 	 * @return declarations
 	 */
-	// public HashMap<String, Integer> getDeclarations() {
-	// return declarations;
-	// }
+	public HashMap<String, Integer> getDeclarations() {
+		return declarations;
+	}
 
 	/**
 	 * Accessor method. Fetches the list of types.
 	 *
 	 * @return types
 	 */
-	// public ArrayList<String> getTypes() {
-	// return types;
-	// }
+	public ArrayList<String> getTypes() {
+		return types;
+	}
 
 	/**
 	 * Accessor method. Fetches the map of references.
 	 *
 	 * @return references
 	 */
-	// public HashMap<String, Integer> getReferences() {
-	// return references;
-	// }
+	public HashMap<String, Integer> getReferences() {
+		return references;
+	}
 
 	/*
-	 * ============================== ASTVisitor FUNCTIONS
-	 * ==============================
+	 * ========================== ASTVisitor FUNCTIONS ==========================
 	 */
 
 	/**

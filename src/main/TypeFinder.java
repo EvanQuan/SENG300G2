@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jdt.core.JavaCore;
@@ -67,20 +66,16 @@ public class TypeFinder {
 
 	private static JavaRetriever retriever;
 	private static ArrayList<File> javaFiles;
-	private static ArrayList<String> types;
-	private static HashMap<String, Integer> declarations;
-	private static HashMap<String, Integer> references;
+	private static TypeVisitor visitor;
 
 	/**
 	 * Iterate through all Java files and find the declarations and references of
 	 * all Java types
 	 */
 	private static void findDeclarationsAndReferences() {
-		// Initialize types, declarations, references as empty
-		types = new ArrayList<String>();
-		declarations = new HashMap<String, Integer>();
-		references = new HashMap<String, Integer>();
-		TypeVisitor visitor = new TypeVisitor(types, declarations, references);
+		// Initialize visitor once, so types, declarations, and references accumulate
+		// over all files
+		visitor = new TypeVisitor();
 
 		// For every file iterated through, types, declarations, and references are
 		// updated.
@@ -187,13 +182,17 @@ public class TypeFinder {
 
 	}
 
+	/**
+	 * Sorts types and prints all types, and declaration and reference counts of
+	 * each type.
+	 */
 	public static void printDeclarationsAndReferences() {
-		// Sort types alphabetically
+		ArrayList<String> types = visitor.getTypes();
 		Collections.sort(types);
 
 		for (String type : types) {
-			int declarationCount = declarations.get(type);
-			int referenceCount = references.get(type);
+			int declarationCount = visitor.getDeclarations().get(type);
+			int referenceCount = visitor.getReferences().get(type);
 			System.out.println(
 					type + ". Declarations found: " + declarationCount + "; references found: " + referenceCount + ".");
 		}
