@@ -9,8 +9,6 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import main.TypeVisitor11;
-
 public abstract class TypeVisitorTest11 {
 
 	protected static String ls = _TestSuite11.lineSeparator;
