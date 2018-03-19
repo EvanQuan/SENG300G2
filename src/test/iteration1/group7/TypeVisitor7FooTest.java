@@ -2,7 +2,7 @@ package test.iteration1.group7;
 
 import org.junit.Test;
 
-import main.TypeVisitor;
+import main.ast.TypeVisitor;
 
 /**
  * JUnit 4 Tests for {@link TypeVisitor} class. Checks type declaration and

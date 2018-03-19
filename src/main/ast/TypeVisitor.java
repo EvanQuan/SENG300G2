@@ -1,4 +1,4 @@
-package main;
+package main.ast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
  * source code, and count the number of declarations of references for each of
  * the java types present.
  * 
- * TODO - SimpleType - SingleMemberAnnotation
+ * TODO - SimpleType - SingleMemberAnnotation - ArrayType - PrimitiveType
  * 
  * 
  *
@@ -99,11 +99,12 @@ public class TypeVisitor extends ASTVisitor {
 	 * Default constructor. Initialize the list of types, and the HashMaps for the
 	 * counters to null.
 	 */
-	public TypeVisitor() {
-		// initialize list and counters to null
-		types = new ArrayList<String>();
-		declarations = new HashMap<String, Integer>();
-		references = new HashMap<String, Integer>();
+	public TypeVisitor(ArrayList<String> types, HashMap<String, Integer> declarations,
+			HashMap<String, Integer> references) {
+		// Track all type information from external trackers
+		this.types = types;
+		this.declarations = declarations;
+		this.references = references;
 	}
 
 	/**
@@ -111,27 +112,27 @@ public class TypeVisitor extends ASTVisitor {
 	 *
 	 * @return declarations
 	 */
-	public HashMap<String, Integer> getDeclarations() {
-		return declarations;
-	}
+	// public HashMap<String, Integer> getDeclarations() {
+	// return declarations;
+	// }
 
 	/**
 	 * Accessor method. Fetches the list of types.
 	 *
 	 * @return types
 	 */
-	public ArrayList<String> getTypes() {
-		return types;
-	}
+	// public ArrayList<String> getTypes() {
+	// return types;
+	// }
 
 	/**
 	 * Accessor method. Fetches the map of references.
 	 *
 	 * @return references
 	 */
-	public HashMap<String, Integer> getReferences() {
-		return references;
-	}
+	// public HashMap<String, Integer> getReferences() {
+	// return references;
+	// }
 
 	/*
 	 * ============================== ASTVisitor FUNCTIONS

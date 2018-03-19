@@ -9,7 +9,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import main.TypeVisitor;
+import main.ast.TypeVisitor;
 
 public abstract class TypeVisitorTest {
 

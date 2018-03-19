@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import main.ast.TypeVisitor;
 import main.file.ClassFile;
 import main.file.File;
 import main.file.FileManager;
@@ -24,7 +26,7 @@ import main.file.JavaRetriever;
  * type with that directory (recursively) or .jar file.
  *
  * @author Evan Quan
- * @version 1.0.0
+ * @version 1.1.0
  * @since March 18, 2018
  *
  */
@@ -34,16 +36,11 @@ public class TypeFinder {
 	 * Command line argument index for the directory/jar path of interest
 	 */
 	public static final int SOURCE_PATH = 0;
-
-	/**
-	 * Command line argument index for Java type of interest
-	 */
-	public static final int JAVA_TYPE = 1;
 	/**
 	 * The number of command line arguments the user needs to input in order for the
 	 * program to properly work.
 	 */
-	public static final int VALID_ARGUMENT_COUNT = 2;
+	public static final int VALID_ARGUMENT_COUNT = 1;
 	/**
 	 * Error message when the user inputs a directory or jar file that TypeFinder
 	 * cannot recognize. This may be because the directory or jar file does not
@@ -59,12 +56,7 @@ public class TypeFinder {
 	/**
 	 * Prompts the user on how to use the program properly.
 	 */
-	public static final String USAGE_MESSAGE = "Usage: java TypeFinder <directory> <Java type>";
-	/**
-	 * TODO This is currently unused.
-	 */
-	public static final String PROG_DESCRIPTION_MSG = "Determine the numerical count of declarations and references of a specified Java type for all Java files found in the given directory.";
-
+	public static final String USAGE_MESSAGE = "Usage: java TypeFinder <path>";
 	/**
 	 * Error message when the user inputs an incorrect number of command line
 	 * arguments when running the program.
@@ -72,35 +64,30 @@ public class TypeFinder {
 	public static final String INVALID_ARGUMENT_ERROR_MESSAGE = "Error: Invalid number of arguments.\n" + USAGE_MESSAGE;
 
 	private static String sourcePath;
-	private static String type;
-
-	private static int declarationCount;
-	private static int referenceCount;
 
 	private static JavaRetriever retriever;
 	private static ArrayList<File> javaFiles;
+	private static ArrayList<String> types;
+	private static HashMap<String, Integer> declarations;
+	private static HashMap<String, Integer> references;
 
 	/**
 	 * Iterate through all Java files and find the declarations and references of
 	 * all Java types
 	 */
 	private static void findDeclarationsAndReferences() {
+		// Initialize types, declarations, references as empty
+		types = new ArrayList<String>();
+		declarations = new HashMap<String, Integer>();
+		references = new HashMap<String, Integer>();
+		TypeVisitor visitor = new TypeVisitor(types, declarations, references);
+
+		// For every file iterated through, types, declarations, and references are
+		// updated.
 		for (File file : javaFiles) {
 			ASTParser parser = getConfiguredASTParser(file);
 			CompilationUnit cu = (CompilationUnit) parser.createAST(null);
-
-			TypeVisitor visitor = new TypeVisitor();
 			cu.accept(visitor);
-
-			ArrayList<String> types = visitor.getTypes();
-			HashMap<String, Integer> declarations = visitor.getDeclarations();
-			HashMap<String, Integer> references = visitor.getReferences();
-
-			// increment the total counter
-			if (types.contains(type)) {
-				declarationCount += declarations.get(type);
-				referenceCount += references.get(type);
-			}
 		}
 	}
 
@@ -191,17 +178,25 @@ public class TypeFinder {
 			return; // End program
 		}
 
-		// Initialize declaration and reference count
-		declarationCount = 0;
-		referenceCount = 0;
-
 		// Find declaration and reference counts
 		javaFiles = retriever.getJavaContents(sourcePath);
 		findDeclarationsAndReferences();
 
 		// Final output
-		System.out.println(
-				type + ". Declarations found: " + declarationCount + "; references found: " + referenceCount + ".");
+		printDeclarationsAndReferences();
+
+	}
+
+	public static void printDeclarationsAndReferences() {
+		// Sort types alphabetically
+		Collections.sort(types);
+
+		for (String type : types) {
+			int declarationCount = declarations.get(type);
+			int referenceCount = references.get(type);
+			System.out.println(
+					type + ". Declarations found: " + declarationCount + "; references found: " + referenceCount + ".");
+		}
 	}
 
 	/**
@@ -221,7 +216,6 @@ public class TypeFinder {
 
 		// Get input from command line arguments
 		sourcePath = args[SOURCE_PATH];
-		type = args[JAVA_TYPE];
 
 		// Determine which type of retriever to use depending on input
 		if (FileManager.isValidDirectory(sourcePath)) {
