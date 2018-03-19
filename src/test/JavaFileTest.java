@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.JavaFile;
+import main.io.JavaFile;
 
 /**
  * JUnit 4 tests for JavaFile class.
@@ -49,7 +49,7 @@ public class JavaFileTest {
 
 	@Test
 	public void getSource_pathInitial_pathInitial() {
-		assertEquals(sourceInitial, file.getSource());
+		assertEquals(sourceInitial, file.getContents());
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class JavaFileTest {
 
 	@Test
 	public void setSource_sourceNew_sourceNew() {
-		file.setSource(sourceNew);
-		assertEquals(sourceNew, file.getSource());
+		file.setContents(sourceNew);
+		assertEquals(sourceNew, file.getContents());
 	}
 }
