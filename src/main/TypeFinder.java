@@ -1,22 +1,21 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
-
-import javax.lang.model.type.TypeVisitor;
 
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import main.io.ClassFile;
-import main.io.File;
-import main.io.FileManager;
-import main.io.JarRetriever;
-import main.io.JavaFile;
-import main.io.JavaFileRetriever;
-import main.io.JavaRetriever;
+import main.file.ClassFile;
+import main.file.File;
+import main.file.FileManager;
+import main.file.JarRetriever;
+import main.file.JavaFile;
+import main.file.JavaFileRetriever;
+import main.file.JavaRetriever;
 
 /**
  * Takes a pathname to indicate a directory or .jar file of interest and a
@@ -89,14 +88,14 @@ public class TypeFinder {
 			TypeVisitor visitor = new TypeVisitor();
 			cu.accept(visitor);
 
-			List<String> types = visitor.getList();
-			Map<String, Integer> decCounter = visitor.getDecCount();
-			Map<String, Integer> refCounter = visitor.getRefCount();
+			ArrayList<String> types = visitor.getTypes();
+			HashMap<String, Integer> declarations = visitor.getDeclarations();
+			HashMap<String, Integer> references = visitor.getReferences();
 
 			// increment the total counter
 			if (types.contains(type)) {
-				declarationCount += decCounter.get(type);
-				referenceCount += refCounter.get(type);
+				declarationCount += declarations.get(type);
+				referenceCount += references.get(type);
 			}
 		}
 	}
@@ -109,11 +108,16 @@ public class TypeFinder {
 	 */
 	private static ASTParser getConfiguredASTParser(ClassFile file) {
 		// TODO
+		// Figure out what to set as source.
+		// IClassFile?
+		// ICompilationUnit?
+		// What about other settings? Are they the same?
+		// setKind still CompilationUnit?
 		return null;
 	}
 
 	/**
-	 * This method is overriden by JavaFile and ClassFile implementations
+	 * This method is overridden by JavaFile and ClassFile implementations
 	 * 
 	 * @param file
 	 *            to set as source

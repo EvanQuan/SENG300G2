@@ -1,4 +1,4 @@
-package main.io;
+package main.file;
 
 /**
  * Represents a file. Contains file name, path, and contents.

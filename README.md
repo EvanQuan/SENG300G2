@@ -78,4 +78,4 @@ Zahra Al Ibrahim - zahra.alibrahim@ucalgary.ca
 
 Sunah Kim - suna.kim@ucalgary.ca
 
-Marecello Bi Benedetto - marcello.dibenede1@ucalgary.ca
+Marcello Di Benedetto - marcello.dibenede1@ucalgary.ca

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.io.JavaFile;
+import main.file.JavaFile;
 
 /**
  * JUnit 4 tests for JavaFile class.

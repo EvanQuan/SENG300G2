@@ -1,4 +1,4 @@
-package main.io;
+package main.file;
 
 import java.io.IOException;
 import java.nio.file.NotDirectoryException;

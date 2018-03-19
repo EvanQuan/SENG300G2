@@ -1,4 +1,4 @@
-package test;
+package test.iteration1.group7;
 
 import java.io.File;
 
@@ -10,8 +10,7 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeVisitorBuiltInTest.class, TypeVisitorFooTest.class,
-		TypeVisitorPackageFooTest.class })
+@Suite.SuiteClasses({ TypeVisitor7BuiltInTest.class, TypeVisitor7FooTest.class, TypeVisitor7PackageFooTest.class })
 
 /**
  * Runs all test classes
@@ -20,7 +19,7 @@ import org.junit.runners.Suite;
  * @since 19 March 2018
  *
  */
-public class _TestSuite {
+public class _TestSuite7 {
 	/**
 	 * Base directory is the root of the entire eclipse project (which is the PARENT
 	 * of the src folder)

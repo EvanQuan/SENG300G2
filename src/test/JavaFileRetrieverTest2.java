@@ -2,15 +2,15 @@ package test;
 
 import java.util.ArrayList;
 
-import main.io.File;
-import main.io.JavaFileRetriever;
+import main.file.File;
+import main.file.JavaFileRetriever;
 
 /**
  * Checks that JavaFileRetriever works.
  *
  * @author Evan Quan
  * @version 1.0.0
- * @since March 18, 2018
+ * @since 19 March 2018
  *
  */
 public class JavaFileRetrieverTest2 {

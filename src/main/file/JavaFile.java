@@ -1,4 +1,4 @@
-package main.io;
+package main.file;
 
 /**
  * Represents a .java file. Contains file name, path, and source code.
