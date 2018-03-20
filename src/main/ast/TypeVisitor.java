@@ -223,8 +223,8 @@ public class TypeVisitor extends ASTVisitor {
 		} else {
 			/**
 			 * Limitation: Unless the type in new <Type>(); is a nested class or a
-			 * java.lang.whatever shit, it will not be able to compute the full qualified
-			 * name (main.FUCK.foo)
+			 * java.lang.whatever it will not be able to compute the full qualified
+			 * name
 			 */
 			ITypeBinding typeBind = node.getType().resolveBinding();
 			String type = typeBind.getQualifiedName();
