@@ -212,7 +212,15 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 */
 	@Test
 	public void test_SingleMemberAnnotationReference_Dec_0_Ref_1() {
-		configureParser("public class Other{@Foo(3) public void method() {}}", type, 0, 1);
+		configureParser("public class Other{@Foo(3, 4, 5) public void method() {}}", type, 0, 1);
+	}
+
+	/**
+	 * Check if a normal annotation referenced is counted
+	 */
+	@Test
+	public void test_NormalAnnotationReference_Dec_0_Ref_1() {
+		configureParser("public class Other{@Foo(expected = Bar.class) public void method() {}}", type, 0, 1);
 	}
 
 	/**
@@ -265,7 +273,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * a generic parameter and instantiates it counts as 2 references
 	 */
 	@Test
-	public void test_1ParamterizedTypeAndInstantiated_Dec_0_Ref_2() {
+	public void test_In1ParamterizedTypeAndInstantiated_Dec_0_Ref_2() {
 		configureParser("public class Other{ Bar<Foo> bar = new Bar<Foo>();}", type, 0, 2);
 	}
 
@@ -387,8 +395,16 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * TODO
 	 */
 	@Test
-	public void test_ThrowException_Dec_0_Ref_1() {
-		configureParser("public class Other { public void method() {throw new Foo()}}", type, 0, 1);
+	public void test_MethodDeclarationThrowsException_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() throws Foo {}}", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_MethodBodyThrowException_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() {throw new Foo();}}", type, 0, 1);
 	}
 
 	/**
@@ -419,14 +435,6 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * TODO
 	 */
 	@Test
-	public void test_WildcardParamterFieldInstantiation_Dec_0_Ref_2() {
-		configureParser("public class Other {Foo<?> foo = new Foo<?>();}", type, 0, 2);
-	}
-
-	/**
-	 * TODO
-	 */
-	@Test
 	public void test_NestedClassDeclaration_Dec_1_Ref_0() {
 		configureParser("public class Other { public class Foo {} }", type, 1, 0);
 	}
@@ -438,4 +446,5 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	public void test_CaseSensitive_Dec_0_Ref_2() {
 		configureParser("public class FoO { FOo foo = new FoO(); Foo foO = new Foo();}", type, 0, 2);
 	}
+	
 }
