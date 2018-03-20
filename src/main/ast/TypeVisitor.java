@@ -498,15 +498,19 @@ public class TypeVisitor extends ASTVisitor {
 	/**
 	 * import bar.Foo;
 	 * 
-	 * Gets package name "bar"
+	 * Gets "bar.Foo"
 	 */
 	@Override
 	public boolean visit(ImportDeclaration node) {
 		if (node.getName().resolveTypeBinding() != null) {
-			String type = node.getName().resolveTypeBinding().getQualifiedName();
-			debug("ImportDeclaration", type);
-			addTypeToList(type);
-			incrementReference(type);
+			String type = node.getName().toString();
+			// Importing wildcard (eg. import bar.*) will return only package name (bar).
+			// Since we want a fully qualified class name, we reject only package name.
+			if (type.contains(".")) {
+				debug("ImportDeclaration", type);
+				addTypeToList(type);
+				incrementReference(type);
+			}
 		}
 
 		return true;
