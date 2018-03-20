@@ -21,7 +21,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * generic parameter counts as a reference
 	 */
 	@Test
-	public void test1ParamterizedType_Dec_0_Ref_1() {
+	public void test_In1ParamterizedType_Dec_0_Ref_1() {
 		configureParser("public class Other{ Bar<Foo> bar;}", type, 0, 1);
 	}
 
@@ -30,7 +30,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * generic parameter twice counts as 2 references
 	 */
 	@Test
-	public void test2ParameterizedTypes_Dec_0_Ref_2() {
+	public void test_In1ParameterizedTypes_Dec_0_Ref_2() {
 		configureParser("public class Other{ Bar<Foo, Foo> bar;}", type, 0, 2);
 	}
 
@@ -40,7 +40,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * parameter of another class
 	 */
 	@Test
-	public void test3ParameterizedTypesMixed_Dec_0_Ref_2() {
+	public void test_In3ParameterizedTypesMixed_Dec_0_Ref_2() {
 		configureParser("public class Other{ Bar<Foo, String, Foo> bar;}", type, 0, 2);
 	}
 
@@ -48,7 +48,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if an annotation declaration is counted as a declaration
 	 */
 	@Test
-	public void testAnnotationDeclaration_Dec_1_Ref_0() {
+	public void test_AnnotationDeclaration_Dec_1_Ref_0() {
 		configureParser("@interface Foo {}", type, 1, 0);
 	}
 
@@ -56,7 +56,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check that instantiating an array of Foo counts a 1 reference
 	 */
 	@Test
-	public void testArrayDeclarableVariableAndAllocate_Dec_0_Ref_1() {
+	public void test_ArrayDeclarableVariableAndAllocate_Dec_0_Ref_1() {
 		configureParser("public class Other {Bar[] bar = new Foo[1];}", type, 0, 1);
 	}
 
@@ -64,7 +64,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check that declaring and instantiating an array of Foo counts as 2 references
 	 */
 	@Test
-	public void testArrayDeclarableVariableAndAllocate_Dec_0_Ref_2() {
+	public void test_ArrayDeclarableVariableAndAllocate_Dec_0_Ref_2() {
 		configureParser("public class Other {Foo[] foo = new Foo[1];}", type, 0, 2);
 	}
 
@@ -72,7 +72,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check that creating a variable of an array of Foo counts as a reference
 	 */
 	@Test
-	public void testArrayDeclareVariable_Dec_0_Ref_1() {
+	public void test_ArrayDeclareVariable_Dec_0_Ref_1() {
 		configureParser("public class Other {Foo[] foo;}", type, 0, 1);
 	}
 
@@ -80,7 +80,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if declaring a meta class of Foo counts as a reference
 	 */
 	@Test
-	public void testClassClass_Dec_0_Ref_1() {
+	public void test_ClassClass_Dec_0_Ref_1() {
 		configureParser("public class Other{Class<Foo> foo;}", type, 0, 1);
 	}
 
@@ -88,7 +88,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if declaring a meta class of Foo counts as a reference TODO return here
 	 */
 	@Test
-	public void testClassClass_Dec_0_Ref_2() {
+	public void test_ClassClass_Dec_0_Ref_2() {
 		configureParser("public class Other{Class<Foo> foo = Foo.class;}", type, 0, 2);
 	}
 
@@ -96,7 +96,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if a class declaration is counted as a declaration
 	 */
 	@Test
-	public void testClassDeclaration_Dec_1_Ref_0() {
+	public void test_ClassDeclaration_Dec_1_Ref_0() {
 		configureParser("class Foo {}", type, 1, 0);
 	}
 
@@ -104,7 +104,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check that declaring an variable inside a method counts as a reference
 	 */
 	@Test
-	public void testDeclareAndInstantiateInsideMethod_Dec_0_Ref_2() {
+	public void test_DeclareAndInstantiateInsideMethod_Dec_0_Ref_2() {
 		configureParser("public class Other{ public void bar() {Foo f = new Foo();}", type, 0, 2);
 	}
 
@@ -113,7 +113,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * counted as 2 references
 	 */
 	@Test
-	public void testDeclareAndInstantiateVariable_Dec_0_Ref_2() {
+	public void test_DeclareAndInstantiateVariable_Dec_0_Ref_2() {
 		configureParser("public class Other { Foo foo = new Foo();}", type, 0, 2);
 	}
 
@@ -121,7 +121,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check that declaring an variable inside a method counts as a reference
 	 */
 	@Test
-	public void testDeclareInsideMethod_Dec_0_Ref_1() {
+	public void test_DeclareInsideMethod_Dec_0_Ref_1() {
 		configureParser("public class Other{ public void bar() {Foo f;}", type, 0, 1);
 	}
 
@@ -129,7 +129,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if a variable declaration is counted as a reference
 	 */
 	@Test
-	public void testDeclareVariable_Dec_0_Ref_1() {
+	public void test_DeclareVariable_Dec_0_Ref_1() {
 		configureParser("public class Other{ Foo foo;}", type, 0, 1);
 	}
 
@@ -137,12 +137,12 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if an enum declaration is counted as a declaration
 	 */
 	@Test
-	public void testEnumDeclaration_Dec_1_Ref_0() {
+	public void test_EnumDeclaration_Dec_1_Ref_0() {
 		configureParser("enum Foo {}", type, 1, 0);
 	}
 
 	@Test
-	public void testForLoopInitialization_Dec_0_Ref_1() {
+	public void test_ForLoopInitialization_Dec_0_Ref_1() {
 		configureParser("public class Other { public void method() { for (Foo f;;){}}}", type, 0, 1);
 	}
 
@@ -151,7 +151,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * or declarations
 	 */
 	@Test
-	public void testIllegalSyntax_Dec_0_Ref_0() {
+	public void test_IllegalSyntax_Dec_0_Ref_0() {
 		configureParser("This is invalid Java syntax; Foo foo; Foo foo2 = new Foo();", type, 0, 0);
 	}
 
@@ -160,7 +160,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * constructor is counted
 	 */
 	@Test
-	public void testInstantiateInsideOtherConstructor_Dec_0_Ref_1() {
+	public void test_InstantiateInsideOtherConstructor_Dec_0_Ref_1() {
 		configureParser("public class Other{ Other2 other = new Other2(new Foo());}", type, 0, 1);
 	}
 
@@ -169,7 +169,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * the reference
 	 */
 	@Test
-	public void testInstantiateOtherInsideConstructor_Dec_0_Ref_2() {
+	public void test_InstantiateOtherInsideConstructor_Dec_0_Ref_2() {
 		configureParser("public class Other{ Foo foo = new Foo(new Other2());}", type, 0, 2);
 	}
 
@@ -178,7 +178,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * of Foo counts 1 reference
 	 */
 	@Test
-	public void testInstantiateVariableOfParent_Dec_1_Ref_1() {
+	public void test_InstantiateVariableOfParent_Dec_1_Ref_1() {
 		configureParser("public class Other{ FooParent foo = new Foo();}", type, 0, 1);
 	}
 
@@ -187,7 +187,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Foo counts as 1 reference
 	 */
 	@Test
-	public void testInstantiatingVariableOfChild_Dec_0_Ref_1() {
+	public void test_InstantiatingVariableOfChild_Dec_0_Ref_1() {
 		configureParser("public class Other{ Foo foo = new FooChild();}", type, 0, 1);
 	}
 
@@ -195,7 +195,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if an interface declaration is counted as a declaration
 	 */
 	@Test
-	public void testInterfaceDeclaration_Dec_1_Ref_0() {
+	public void test_InterfaceDeclaration_Dec_1_Ref_0() {
 		configureParser("interface Foo {}", type, 1, 0);
 	}
 
@@ -203,8 +203,16 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * Check if an annotation reference is counted as a reference
 	 */
 	@Test
-	public void testMarkerAnnotationReference_Dec_0_Ref_1() {
+	public void test_MarkerAnnotationReference_Dec_0_Ref_1() {
 		configureParser("public class Other{@Foo public void method() {}}", type, 0, 1);
+	}
+
+	/**
+	 * Check if a single member annotation reference is counted as a reference
+	 */
+	@Test
+	public void test_SingleMemberAnnotationReference_Dec_0_Ref_1() {
+		configureParser("public class Other{@Foo(3) public void method() {}}", type, 0, 1);
 	}
 
 	/**
@@ -212,7 +220,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * reference
 	 */
 	@Test
-	public void testMethodReturn_Dec_0_Ref_1() {
+	public void test_MethodReturn_Dec_0_Ref_1() {
 		configureParser("public class Other{ public Foo methodName() {}}", type, 0, 1);
 	}
 
@@ -221,7 +229,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * a reference
 	 */
 	@Test
-	public void testNormalAnnotationParameterReference_Dec_0_Ref_1() {
+	public void test_NormalAnnotationParameterReference_Dec_0_Ref_1() {
 		configureParser("public class Other{@Test(expected = Foo.class) public void test() {}}", type, 0, 1);
 	}
 
@@ -230,7 +238,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * count
 	 */
 	@Test
-	public void testOtherClassDeclaration_Dec_0_Ref_0() {
+	public void test_OtherClassDeclaration_Dec_0_Ref_0() {
 		configureParser("class Other {}", type, 0, 0);
 	}
 
@@ -239,7 +247,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * reference
 	 */
 	@Test
-	public void testReturnConstructor_Dec_0_Ref_2() {
+	public void test_ReturnConstructor_Dec_0_Ref_2() {
 		configureParser("public class Other{public Foo bar() {return new Foo();}", type, 0, 2);
 	}
 
@@ -248,7 +256,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * counted as a reference
 	 */
 	@Test
-	public void testSetVariable_Dec_0_Ref_1() {
+	public void test_SetVariable_Dec_0_Ref_1() {
 		configureParser("public class Other { Foo foo = anotherFoo;}", type, 0, 1);
 	}
 
@@ -257,7 +265,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * a generic parameter and instantiates it counts as 2 references
 	 */
 	@Test
-	public void test1ParamterizedTypeAndInstantiated_Dec_0_Ref_2() {
+	public void test_1ParamterizedTypeAndInstantiated_Dec_0_Ref_2() {
 		configureParser("public class Other{ Bar<Foo> bar = new Bar<Foo>();}", type, 0, 2);
 	}
 
@@ -266,7 +274,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * a generic parameter twice and instantiates it counts as 4 references
 	 */
 	@Test
-	public void test2ParameterizedTypesAndInstantiated_Dec_0_Ref_4() {
+	public void test_In2ParameterizedTypesAndInstantiated_Dec_0_Ref_4() {
 		configureParser("public class Other{ Bar<Foo, Foo> bar = new Bar<Foo, Foo>();}", type, 0, 4);
 	}
 
@@ -276,7 +284,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * another third generic parameter of another class
 	 */
 	@Test
-	public void test3ParameterizedTypesAndInstantiatedMixed_dec_0_Ref_4() {
+	public void test_In3ParameterizedTypesAndInstantiatedMixed_dec_0_Ref_4() {
 		configureParser("public class Other{ Bar<Foo, String, Foo> bar = new Bar<Foo, String, Foo>();}", type, 0, 4);
 	}
 
@@ -284,7 +292,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * TODO Check if an @link annotation in Javadoc counts as a reference
 	 */
 	@Test
-	public void testLinkAnnotation_Dec_0_Ref_1() {
+	public void test_LinkAnnotation_Dec_0_Ref_1() {
 		configureParser("/**" + ls + " * {@link Foo}" + ls + " */" + ls + "public class Other{}", type, 0, 1);
 	}
 
@@ -293,7 +301,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * reference
 	 */
 	@Test
-	public void testSwitchStatementVariableDeclaration_Dec_0_Ref_1() {
+	public void test_SwitchStatementVariableDeclaration_Dec_0_Ref_1() {
 		configureParser("public class Other{ public void method() { int x = 1; switch(x){" + "case 1:" + "Foo foo;"
 				+ "break;" + "case 2:" + "break;" + "default:" + "} }}", type, 0, 1);
 	}
@@ -303,7 +311,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * counts as a reference
 	 */
 	@Test
-	public void testReturnStaticField_Dec_0_Ref_1() {
+	public void test_ReturnStaticField_Dec_0_Ref_1() {
 		configureParser("public class Other { Bar bar = Foo.staticField;}", type, 0, 1);
 	}
 
@@ -312,7 +320,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * counts as a reference
 	 */
 	@Test
-	public void testReturnStaticMethod_Dec_0_Ref_1() {
+	public void test_ReturnStaticMethod_Dec_0_Ref_1() {
 		configureParser("public class Other { Bar bar = Foo.staticMethod();}", type, 0, 1);
 	}
 
@@ -320,7 +328,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * TODO Check that retrieving and setting a static field counts as a reference
 	 */
 	@Test
-	public void testSetStaticField_Dec_0_Ref_1() {
+	public void test_SetStaticField_Dec_0_Ref_1() {
 		configureParser("public class Other {Foo.staticField = 3;}", type, 0, 1);
 	}
 
@@ -329,8 +337,105 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	 * reference
 	 */
 	@Test
-	public void testSetStaticMethod_Dec_0_Ref_1() {
+	public void test_SetStaticMethod_Dec_0_Ref_1() {
 		configureParser("public class Other {Foo.staticMethod(3);}", type, 0, 1);
 	}
 
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_ParameterizedTypeVariableDeclaration_Dec_0_Ref_1() {
+		configureParser("public class Other { Foo<Bar> foo; }", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_ParameterizedTypeVariableInstantiation_Dec_0_Ref_2() {
+		configureParser("public class Other { Foo<Bar> foo = new Foo<Bar>(); }", type, 0, 2);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_Casting_Dec_0_Ref_2() {
+		configureParser("public class Other { Foo foo = (Foo) bar;}", type, 0, 2);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_ForEachLoop_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() { for (Foo f : foos){}}}", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_Instanceof_Dec_0_Ref_3() {
+		configureParser(
+				"public class Other { public void method() { Foo foo = new Foo(); if (foo instanceof Foo) {} }}", type,
+				0, 3);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_ThrowException_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() {throw new Foo()}}", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_CatchGuard_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() {try {} catch (Foo foo){} }}", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_ExtendsDeclaration_Dec_0_Ref_1() {
+		configureParser("public class Other extends Foo {}", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_WildcardParamterFieldDeclaration_Dec_0_Ref_1() {
+		configureParser("public class Other {Foo<?> foo;}", type, 0, 1);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_WildcardParamterFieldInstantiation_Dec_0_Ref_2() {
+		configureParser("public class Other {Foo<?> foo = new Foo<?>();}", type, 0, 2);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_NestedClassDeclaration_Dec_1_Ref_0() {
+		configureParser("public class Other { public class Foo {} }", type, 1, 0);
+	}
+
+	/**
+	 * TODO
+	 */
+	@Test
+	public void test_CaseSensitive_Dec_0_Ref_2() {
+		configureParser("public class FoO { FOo foo = new FoO(); Foo foO = new Foo();}", type, 0, 2);
+	}
 }

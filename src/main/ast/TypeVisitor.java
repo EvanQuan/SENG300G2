@@ -6,10 +6,9 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
-import org.eclipse.jdt.core.dom.ArrayCreation;
+import org.eclipse.jdt.core.dom.ArrayType;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ForStatement;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
@@ -20,6 +19,10 @@ import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
+import org.eclipse.jdt.core.dom.ParameterizedType;
+import org.eclipse.jdt.core.dom.PrimitiveType;
+import org.eclipse.jdt.core.dom.QualifiedType;
+import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.TypeLiteral;
@@ -35,6 +38,9 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
  * 
  * TODO - SimpleType - SingleMemberAnnotation - ArrayType - PrimitiveType
  * 
+ * Type and subtypes
+ * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/Type.html
+ * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/VariableDeclarationFragment.html
  * 
  *
  * @author Sze Lok Irene Chan
@@ -45,6 +51,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
  */
 public class TypeVisitor extends ASTVisitor {
 
+	private boolean debug;
 	private ArrayList<String> types;
 	private HashMap<String, Integer> declarations;
 	private HashMap<String, Integer> references;
@@ -92,6 +99,20 @@ public class TypeVisitor extends ASTVisitor {
 	}
 
 	/*
+	 * ========================= DEBUG FUNCTIONS =========================
+	 */
+	private void debug(String message) {
+		if (debug) {
+			System.out.println(message);
+		}
+	}
+
+	private void debug(String node, String type) {
+		if (debug) {
+			System.out.println("Node: " + node + " | Type: " + type);
+		}
+	}
+	/*
 	 * ========================= HELPER FUNCTIONS =========================
 	 */
 
@@ -100,7 +121,16 @@ public class TypeVisitor extends ASTVisitor {
 	 * counters to null.
 	 */
 	public TypeVisitor() {
-		// Track all type information from external trackers
+		this(false); // Debug is false
+	}
+
+	/**
+	 * Debug constructor.
+	 * 
+	 * @param debug
+	 */
+	public TypeVisitor(boolean debug) {
+		this.debug = debug;
 		this.types = new ArrayList<String>();
 		this.declarations = new HashMap<String, Integer>();
 		this.references = new HashMap<String, Integer>();
@@ -151,7 +181,7 @@ public class TypeVisitor extends ASTVisitor {
 	 *            AnnotationTypeDeclaration
 	 * @return boolean true to visit the children of this node
 	 */
-	@Override
+	@Override // SAME
 	public boolean visit(AnnotationTypeDeclaration node) {
 		ITypeBinding typeBind = node.resolveBinding();
 		String type = typeBind.getQualifiedName();
@@ -178,14 +208,61 @@ public class TypeVisitor extends ASTVisitor {
 	 *            ArrayCreation
 	 * @return boolean true to visit the children of this node
 	 */
+	// @Override // TODO replace with ArrayType?
+	// public boolean visit(ArrayCreation node) {
+	// ITypeBinding typeBind = node.getType().getElementType().resolveBinding();
+	// String type = typeBind.getQualifiedName();
+	//
+	// debug("ArrayCreation", type);
+	//
+	// addTypeToList(type);
+	// incrementReference(type);
+	//
+	// return true;
+	// }
+	/**
+	 * Visits an Array reference Foo[]
+	 * 
+	 * @param node
+	 * @return true to visit the children of this node
+	 */
 	@Override
-	public boolean visit(ArrayCreation node) {
-		ITypeBinding typeBind = node.getType().getElementType().resolveBinding();
+	public boolean visit(ArrayType node) {
+		ITypeBinding typeBind = node.resolveBinding();
 		String type = typeBind.getQualifiedName();
+
+		debug("ArrayType", type);
 
 		addTypeToList(type);
 		incrementReference(type);
+		return true;
+	}
 
+	// TODO return here
+	@Override
+	public boolean visit(PrimitiveType node) {
+		ITypeBinding typeBind = node.resolveBinding();
+		String type = typeBind.getQualifiedName();
+
+		// void is not a primitive type
+		if (!type.equals("void")) {
+			debug("PrimitiveType", type);
+			addTypeToList(type);
+			incrementReference(type);
+		}
+		return true;
+	}
+
+	// TODO what is this for? Example of QualifiedType
+	@Override
+	public boolean visit(QualifiedType node) {
+		ITypeBinding typeBind = node.resolveBinding();
+		String type = typeBind.getQualifiedName();
+
+		debug("QualifiedType", type);
+
+		addTypeToList(type);
+		incrementReference(type);
 		return true;
 	}
 
@@ -266,6 +343,42 @@ public class TypeVisitor extends ASTVisitor {
 	}
 
 	/**
+	 * Intent: replace FieldDeclaration TODO Does this result in double count?
+	 */
+	@Override
+	public boolean visit(SimpleType node) {
+		ITypeBinding typeBind = node.resolveBinding();
+		String type = typeBind.getQualifiedName();
+
+		addTypeToList(type);
+		incrementReference(type);
+
+		// Check for ArrayTypes
+		// Should count for both simple and array
+		if (node.isArrayType()) {
+
+		}
+
+		return true;
+	}
+
+	/**
+	 * Intent: replace FieldDeclaration TODO Does this result in double count?
+	 */
+	@Override
+	public boolean visit(ParameterizedType node) {
+		ITypeBinding typeBind = node.resolveBinding();
+		String type = typeBind.getTypeDeclaration().getQualifiedName();
+
+		debug("ParameterizedType", type);
+		// Add Parameterized Type
+		addTypeToList(type);
+		incrementReference(type);
+
+		return true;
+	}
+
+	/**
 	 * Visits a Field declaration node type. This type of node collects MULTIPLE
 	 * VARIABLE DECL FRAGMENT into a single body declaration. They all share the
 	 * same base type.
@@ -279,58 +392,61 @@ public class TypeVisitor extends ASTVisitor {
 	 *            : FieldDeclaration
 	 * @return boolean : True to visit the children of this node
 	 */
-	@Override
-	public boolean visit(FieldDeclaration node) {
-		boolean isParameterized = node.getType().isParameterizedType();
-
-		if (isParameterized) {
-			ITypeBinding typeBind = node.getType().resolveBinding().getTypeDeclaration();
-			String type = typeBind.getQualifiedName();
-
-			addTypeToList(type);
-			incrementReference(type);
-
-			// inc count for all the arguments
-			for (ITypeBinding paramBind : node.getType().resolveBinding().getTypeArguments()) {
-				String paramType = paramBind.getQualifiedName();
-				addTypeToList(paramType);
-				incrementReference(paramType);
-			}
-
-			// get initializers if they exists
-			List<VariableDeclarationFragment> fragments = node.fragments();
-			for (VariableDeclarationFragment fragment : fragments) {
-				if (fragment.getInitializer() instanceof TypeLiteral) {
-					String initType = ((TypeLiteral) fragment.getInitializer()).getType().resolveBinding()
-							.getQualifiedName();
-					addTypeToList(initType);
-					incrementReference(initType);
-				}
-			}
-
-		} else {
-			boolean isArrayType = node.getType().isArrayType();
-			if (isArrayType) {
-				ITypeBinding arrTypeBind = node.getType().resolveBinding().getElementType();
-				String type = arrTypeBind.getQualifiedName();
-				addTypeToList(type);
-				incrementReference(type);
-			} else {
-				ITypeBinding typeBind = node.getType().resolveBinding();
-				String type = typeBind.getQualifiedName();
-
-				addTypeToList(type);
-
-				// iterate through all the fragments, and increment the type counter
-				for (Object fragment : node.fragments()) {
-					if (fragment instanceof VariableDeclarationFragment) {
-						incrementReference(type);
-					}
-				}
-			}
-		}
-		return true;
-	}
+	// TODO This is to be replaced by lower children nodes
+	// @Override
+	// public boolean visit(FieldDeclaration node) {
+	// boolean isParameterized = node.getType().isParameterizedType();
+	//
+	// if (isParameterized) {
+	// ITypeBinding typeBind = node.getType().resolveBinding().getTypeDeclaration();
+	// String type = typeBind.getQualifiedName();
+	//
+	// addTypeToList(type);
+	// incrementReference(type);
+	//
+	// // inc count for all the arguments
+	// for (ITypeBinding paramBind :
+	// node.getType().resolveBinding().getTypeArguments()) {
+	// String paramType = paramBind.getQualifiedName();
+	// addTypeToList(paramType);
+	// incrementReference(paramType);
+	// }
+	//
+	// // get initializers if they exists
+	// List<VariableDeclarationFragment> fragments = node.fragments();
+	// for (VariableDeclarationFragment fragment : fragments) {
+	// if (fragment.getInitializer() instanceof TypeLiteral) {
+	// String initType = ((TypeLiteral)
+	// fragment.getInitializer()).getType().resolveBinding()
+	// .getQualifiedName();
+	// addTypeToList(initType);
+	// incrementReference(initType);
+	// }
+	// }
+	//
+	// } else {
+	// boolean isArrayType = node.getType().isArrayType();
+	// if (isArrayType) {
+	// ITypeBinding arrTypeBind = node.getType().resolveBinding().getElementType();
+	// String type = arrTypeBind.getQualifiedName();
+	// addTypeToList(type);
+	// incrementReference(type);
+	// } else {
+	// ITypeBinding typeBind = node.getType().resolveBinding();
+	// String type = typeBind.getQualifiedName();
+	//
+	// addTypeToList(type);
+	//
+	// // iterate through all the fragments, and increment the type counter
+	// for (Object fragment : node.fragments()) {
+	// if (fragment instanceof VariableDeclarationFragment) {
+	// incrementReference(type);
+	// }
+	// }
+	// }
+	// }
+	// return true;
+	// }
 
 	/**
 	 * Visits for statements AST node type. for (forInit; expression; forUpdate)
@@ -559,6 +675,7 @@ public class TypeVisitor extends ASTVisitor {
 	 *            : TypeDeclaration
 	 * @return boolean : True to visit the children of this node
 	 */
+	// TODO This is to be override by children nodes
 	@Override
 	public boolean visit(TypeDeclaration node) {
 		ITypeBinding typeBind = node.resolveBinding();
@@ -631,4 +748,7 @@ public class TypeVisitor extends ASTVisitor {
 		return true;
 	}
 
+	// public boolean visit(VariableDeclarationFragment node) {
+	// Simple
+	// }
 }
