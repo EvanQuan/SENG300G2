@@ -439,5 +439,36 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	public void test_InstantiateInMethod_Dec_0_Ref_1() {
 		configureParser("public class Other { public void method() { Bar bar = new Bar(); bar.accept(new Foo()); } }", type, 0, 1);
 	}
+	
+	/**
+	 * Check that declaring Foo with generic parameters counts as a declaration of Foo
+	 */
+	@Test
+	public void test_ClassDeclarationGeneric_Dec_1_Ref_0() {
+		configureParser("public class Foo<T> {}", type, 1, 0);
+	}
+	
+	/**
+	 * Check that declaring Foo with generic parameters that must inherit from Bar counts as a declaration of Foo
+	 */
+	@Test
+	public void test_ClassDeclarationGenericExtends_Dec_1_Ref_0() {
+		configureParser("public class Foo<T extends Bar> {}", type, 1, 0);
+	}
 
+	/**
+	 * Check that declaring a class that has a generic parameter that inherits from Foo counts as a reference of Foo
+	 */
+	@Test
+	public void test_InClassDeclarationGenericExtends_Dec_0_Ref_1() {
+		configureParser("public class Bar<T extends Foo> {}", type, 0, 1);
+	}
+	
+	/**
+	 * Check that declaring a class that has a generic parameter that inherits from Foo with generic parameters counts as a reference of Foo
+	 */
+	@Test
+	public void test_ParameterizedInClassDeclarationGenericExtends_Dec_0_Ref_1() {
+		configureParser("public class Bar<T extends Foo<String>> {}", type, 0, 1);
+	}
 }

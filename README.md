@@ -72,10 +72,10 @@ Contact
 
 Evan Quan - 10154242 - evan.quan@ucalgary.ca
 
-Mona Agh - mona.agh1@ucalgary.ca
+Mona Agh - 30033301 - mona.agh1@ucalgary.ca
 
 Zahra Al Ibrahim - 30020048 - zahra.alibrahim@ucalgary.ca
 
-Sunah Kim - suna.kim@ucalgary.ca
+Sunah Kim - 10155604 - suna.kim@ucalgary.ca
 
 Marcello Di Benedetto - 30031839 - marcello.dibenede1@ucalgary.ca
