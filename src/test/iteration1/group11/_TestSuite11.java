@@ -10,7 +10,8 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({ TypeVisitor11BuiltInTest.class, TypeVisitor11FooTest.class, TypeVisitor11PackageFooTest.class })
+@Suite.SuiteClasses({ TypeVisitor11BuiltInTest.class, TypeVisitor11FooTest.class, TypeVisitor11FooArrayTest.class,
+		TypeVisitor11PackageFooTest.class })
 
 /**
  * Runs all test classes

@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
  * All Test suites go here.
  */
 @Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeVisitorBuiltInTest.class, TypeVisitorFooTest.class,
-		TypeVisitorPackageFooTest.class })
+		TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 
 /**
  * Runs all test classes

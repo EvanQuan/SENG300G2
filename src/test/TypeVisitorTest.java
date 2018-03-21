@@ -14,6 +14,7 @@ import main.ast.TypeVisitor;
 public abstract class TypeVisitorTest {
 
 	protected static String ls = _TestSuite.lineSeparator;
+	protected static boolean debug = true;
 
 	/**
 	 * Configures ASTParser and visitor for source file
@@ -47,7 +48,7 @@ public abstract class TypeVisitorTest {
 
 		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-		TypeVisitor visitor = new TypeVisitor();
+		TypeVisitor visitor = new TypeVisitor(debug);
 		cu.accept(visitor);
 
 		int declarationCount = 0;
