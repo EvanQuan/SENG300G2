@@ -175,10 +175,11 @@ public class TypeFinder {
 
 		// Find declaration and reference counts
 		javaFiles = retriever.getJavaContents(sourcePath);
-		findDeclarationsAndReferences();
+		//findDeclarationsAndReferences();
 
 		// Final output
-		printDeclarationsAndReferences();
+		//printDeclarationsAndReferences();
+		System.out.println(javaFiles);
 
 	}
 

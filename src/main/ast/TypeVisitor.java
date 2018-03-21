@@ -268,61 +268,6 @@ public class TypeVisitor extends ASTVisitor {
 	}
 
 	/**
-	 * Visits a Class instance creation expression AST node type. Determine the type
-	 * of the Class instance being created, add it to types, and increment its
-	 * type's counter value in refCounter.
-	 *
-	 * CounterType: REFERENCE
-	 *
-	 * LIMITATION: Given public class Other { Fuck x = new Bar<Foo, String, Foo>();
-	 * } if Bar is not declared before, then the parameter arguments Foo, String,
-	 * Foo will not be recognized
-	 *
-	 * @param node
-	 *            : ClassInstanceCreation
-	 * @return boolean : True to visit the children of this node
-	 */
-//	@Override
-//	public boolean visit(ClassInstanceCreation node) {
-//		boolean isParameterized = node.getType().isParameterizedType();
-//		if (isParameterized) {
-//			ITypeBinding typeBind = node.getType().resolveBinding().getTypeDeclaration();
-//			String type = typeBind.getQualifiedName();
-//
-//			addTypeToList(type);
-//			incrementReference(type);
-//
-//			// inc count for all the arguments
-//			for (ITypeBinding paramBind : node.getType().resolveBinding().getTypeArguments()) {
-//				String paramType = paramBind.getQualifiedName();
-//				addTypeToList(paramType);
-//				incrementReference(paramType);
-//			}
-//		} else {
-//			/**
-//			 * Limitation: Unless the type in new <Type>(); is a nested class or a
-//			 * java.lang.whatever shit, it will not be able to compute the full qualified
-//			 * name (main.FUCK.foo)
-//			 */
-//			ITypeBinding typeBind = node.getType().resolveBinding();
-//			String type = typeBind.getQualifiedName();
-//			IPackageBinding packBind = typeBind.getPackage();
-//			String packName = packBind.getName();
-//
-//			// Add package name if does not contain package name and not in default package
-//			if (!type.contains(".") && packName.length() > 0) {
-//				type = packName + "." + type;
-//			}
-//
-//			addTypeToList(type);
-//			incrementReference(type);
-//		}
-//
-//		return true;
-//	}
-	
-
-	/**
 	 * Visits a Enum declaration AST node type. Determine the type of the Enum
 	 * identifier, add it to types, and increment its type's counter value in
 	 * decCounter.
