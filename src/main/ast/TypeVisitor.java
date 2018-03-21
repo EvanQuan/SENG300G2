@@ -2,6 +2,7 @@ package main.ast;
 
 import java.util.ArrayList;
 
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.ArrayType;
@@ -289,6 +290,15 @@ public class TypeVisitor extends ASTVisitor {
 		return true;
 	}
 	
+	@Override
+	public void preVisit(ASTNode node) {
+		debug("\n\nPREVISIT");
+	}
+	
+	@Override
+	public void postVisit(ASTNode node) {
+		debug("POSTVISIT");
+	}
 	// TODO
 	// What is this?
 //	@Override
