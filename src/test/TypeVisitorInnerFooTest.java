@@ -36,12 +36,12 @@ public class TypeVisitorInnerFooTest extends TypeVisitorTest {
 	}
 	
 	@Test
-	public void test_ClassDeclarationAnonymousInMethod_Dec_1_Ref_0() {
-		configureParser("public class Other { public void main() { Bar bar = new Bar(); bar.accept(new Foo() { public void fooMethod()}} } ", "", 1, 0);
+	public void test_ClassDeclarationAnonymousInMethod_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() { Bar bar = new Bar(); bar.accept(new Foo() {public void fooMethod(){}} ); } } ", "Foo", 0, 1);
 	}
 	
 	@Test
-	public void test_ClassDeclarationAnonymousFieldDeclaration_Dec_1_Ref_0() {
-		configureParser("public class Other { public void main() { Bar bar = new Bar(); bar.accept(new Foo() { public void fooMethod()}} } ", "", 1, 0);
+	public void test_ClassDeclarationAnonymousFieldDeclaration_Dec_0_Ref_1() {
+		configureParser("public class Other { Foo foo = new Foo() { public void method}; } ", "Foo", 0, 1);
 	}
 }

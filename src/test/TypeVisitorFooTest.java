@@ -297,14 +297,6 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check if an @link annotation in Javadoc counts as a reference
-	 */
-	@Test
-	public void test_LinkAnnotation_Dec_0_Ref_1() {
-		configureParser("/**" + ls + " * {@link Foo}" + ls + " */" + ls + "public class Other{}", type, 0, 1);
-	}
-
-	/**
 	 * TODO Check if a variable declaration within a switch statement counts as a
 	 * reference
 	 */
@@ -438,5 +430,9 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 		configureParser("public class FoO { FOo foo = new FoO(); Foo foO = new Foo();}", type, 0, 2);
 	}
 
+	@Test
+	public void test_InstantiateInMethod_Dec_0_Ref_1() {
+		configureParser("public class Other { public void method() { Bar bar = new Bar(); bar.accept(new Foo()); } }", type, 0, 1);
+	}
 
 }

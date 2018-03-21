@@ -1,13 +1,11 @@
 package main.ast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.ArrayType;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
-import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
@@ -15,11 +13,14 @@ import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PrimitiveType;
+import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.QualifiedType;
+import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.dom.UnionType;
+
+import main.util.Multiset;
 
 /**
  * A visitor for abstract syntax trees. For each different concrete AST node
@@ -34,14 +35,16 @@ import org.eclipse.jdt.core.dom.UnionType;
  * @author Evan Quan
  * @version 1.2.0
  *
- * @since 19 March 2018
+ * @since 21 March 2018
  */
 public class TypeVisitor extends ASTVisitor {
 
 	private boolean debug;
 	private ArrayList<String> types;
-	private HashMap<String, Integer> declarations;
-	private HashMap<String, Integer> references;
+//	private HashMap<String, Integer> declarations;
+//	private HashMap<String, Integer> references;
+	private Multiset<String> declarations;
+	private Multiset<String> references;
 
 	/**
 	 * Checks if the passed type already exists within the types list. [false -> add
@@ -54,8 +57,8 @@ public class TypeVisitor extends ASTVisitor {
 	private void addTypeToList(String type) {
 		if (!types.contains(type)) {
 			types.add(type);
-			declarations.put(type, 0);
-			references.put(type, 0);
+//			declarations.put(type, 0);
+//			references.put(type, 0);
 		}
 	}
 
@@ -67,9 +70,9 @@ public class TypeVisitor extends ASTVisitor {
 	 */
 	private void incrementDeclaration(String type) {
 		// Check if the type exists, then increment their associated value by 1
-		if (declarations.containsKey(type)) {
-			declarations.put(type, declarations.get(type) + 1);
-		}
+//		if (declarations.containsKey(type)) {
+//			declarations.put(type, declarations.get(type) + 1);
+		declarations.add(type);
 	}
 
 	/**
@@ -80,9 +83,10 @@ public class TypeVisitor extends ASTVisitor {
 	 */
 	private void incrementReference(String type) {
 		// Check if the type exists, then increment their associated value by 1
-		if (references.containsKey(type)) {
-			references.put(type, references.get(type) + 1);
-		}
+//		if (references.containsKey(type)) {
+//			references.put(type, references.get(type) + 1);
+//		}
+		references.add(type);
 	}
 
 	/*
@@ -119,8 +123,10 @@ public class TypeVisitor extends ASTVisitor {
 	public TypeVisitor(boolean debug) {
 		this.debug = debug;
 		this.types = new ArrayList<String>();
-		this.declarations = new HashMap<String, Integer>();
-		this.references = new HashMap<String, Integer>();
+//		this.declarations = new HashMap<String, Integer>();
+//		this.references = new HashMap<String, Integer>();
+		this.declarations = new Multiset<String>();
+		this.references = new Multiset<String>();
 	}
 
 	/**
@@ -128,7 +134,10 @@ public class TypeVisitor extends ASTVisitor {
 	 *
 	 * @return declarations
 	 */
-	public HashMap<String, Integer> getDeclarations() {
+//	public HashMap<String, Integer> getDeclarations() {
+//		return declarations;
+//	}
+	public Multiset<String> getDeclarations() {
 		return declarations;
 	}
 
@@ -146,7 +155,10 @@ public class TypeVisitor extends ASTVisitor {
 	 *
 	 * @return references
 	 */
-	public HashMap<String, Integer> getReferences() {
+//	public HashMap<String, Integer> getReferences() {
+//		return references;
+//	}
+	public Multiset<String> getReferences() {
 		return references;
 	}
 
@@ -254,18 +266,42 @@ public class TypeVisitor extends ASTVisitor {
 		return true;
 	}
 	
-	// TODO
+	// TODO Remove?
+	// These can detect static methods/fields. is there some other way?
 	@Override
-	public boolean visit(UnionType node) {
-		ITypeBinding typeBind = node.resolveBinding();
-		String type = typeBind.getQualifiedName();
-
-		debug("UnionType", type);
-
-		addTypeToList(type);
-		incrementReference(type);
+	public boolean visit(QualifiedName node) {
+//		String type = node.getFullyQualifiedName();
+//
+//		debug("QualifiedName", type);
+//		addTypeToList(type);
+//		incrementReference(type);
 		return true;
 	}
+	// TODO Remove?
+	// These can detect static methods/fields. is there some other way?
+	@Override
+	public boolean visit(SimpleName node) {
+//		String type = node.getFullyQualifiedName();
+
+//		debug("SimpleName", type);
+//		addTypeToList(type);
+//		incrementReference(type);
+		return true;
+	}
+	
+	// TODO
+	// What is this?
+//	@Override
+//	public boolean visit(UnionType node) {
+//		ITypeBinding typeBind = node.resolveBinding();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("UnionType", type);
+//
+//		addTypeToList(type);
+//		incrementReference(type);
+//		return true;
+//	}
 
 	/**
 	 * Visits a Enum declaration AST node type. Determine the type of the Enum
@@ -718,21 +754,29 @@ public class TypeVisitor extends ASTVisitor {
 //
 //		return true;
 //	}
-
-	// public boolean visit(VariableDeclarationFragment node) {
-	// Simple
-	// }
+	// TODO what does this cover?
+//	 public boolean visit(VariableDeclarationFragment node) {
+//		 SimpleName name = node.getName();
+//		ITypeBinding typeBind = name.resolveTypeBinding();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("VariableDeclarationFragment", type);
+//
+//		addTypeToList(type);
+//		incrementReference(type);
+//		return true;
+//	 }
 	
 	// TODO remove this
-	public boolean visit(FieldAccess node) {
-		ITypeBinding typeBind = node.resolveTypeBinding();
-		String type = typeBind.getQualifiedName();
-
-		debug("FieldAccess", type);
-
-		addTypeToList(type);
-		incrementReference(type);
-		return true;
-	}
+//	public boolean visit(FieldAccess node) {
+//		ITypeBinding typeBind = node.resolveTypeBinding();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("FieldAccess", type);
+//
+//		addTypeToList(type);
+//		incrementReference(type);
+//		return true;
+//	}
 
 }

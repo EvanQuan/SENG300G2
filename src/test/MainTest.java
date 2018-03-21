@@ -6,13 +6,11 @@ public class MainTest {
 	public static void main(String[] args) {
 	}
 	
-	public void method() {
-		class Poop {
-			
+		public void method() {
+			class Foo{
+				
+			}
+			Foo foo = new Foo();
 		}
-		
-		Poop p = new Poop();
-	}
-	
-	Inner i = new Inner() { void anonMethod() {}};
 }
+

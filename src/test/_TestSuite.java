@@ -11,13 +11,13 @@ import org.junit.runners.Suite;
  * All Test suites go here.
  */
 @Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
-		TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
+		TypeVisitorPrimitiveTest.class, TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 
 /**
  * Runs all test classes
  *
  * @author Evan Quan
- * @since 19 March 2018
+ * @since 21 March 2018
  *
  */
 public class _TestSuite {
@@ -41,5 +41,5 @@ public class _TestSuite {
 	public static final String lineSeparator = System.getProperty("line.separator");
 	
 	// Group class versions
-	public static final int TYPE_VISITOR_VERSION = 0;
+	public static final int TYPE_VISITOR_VERSION = TypeVisitorTest.MAIN;
 }

@@ -47,8 +47,7 @@ Ideally we would be debugging with JUnit test cases and the Eclipse debugger.
 However, if you feel inclined to use print statements to debug, please create a Debug class in the default package (immediately in the `src` folder) and set it to whatever you like. It will be ignored by git, so you don't have to worry about other people changing it when you push/pull.
 ```java
 /**
- * Debug class.
- * If in path ../src/Debug.java it will be ignored by git
+ * Debug class. If in path ../src/Debug.java it will be ignored by git.
  */
 public class Debug {
 	/**
@@ -56,7 +55,8 @@ public class Debug {
 	 */
 	public static boolean on = true;
 
-	private Debug(){}
+	private Debug(){
+	}
 }
 ```
 
@@ -74,7 +74,7 @@ Evan Quan - 10154242 - evan.quan@ucalgary.ca
 
 Mona Agh - mona.agh1@ucalgary.ca
 
-Zahra Al Ibrahim - zahra.alibrahim@ucalgary.ca
+Zahra Al Ibrahim - 30020048 - zahra.alibrahim@ucalgary.ca
 
 Sunah Kim - suna.kim@ucalgary.ca
 

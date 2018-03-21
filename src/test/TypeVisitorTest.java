@@ -11,8 +11,20 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import main.ast.TypeVisitor;
 
+/**
+ * 
+ * @author Evan Quan
+ * @version 1.0.0
+ * @since 21 March 2018
+ *
+ */
 public abstract class TypeVisitorTest {
 
+	public static final int MAIN = 0;
+	public static final int I1G7 = 107;
+	public static final int I1G8 = 108;
+	public static final int I1G11 = 111;
+	public static final int I1G12 = 112;
 	protected static String ls = _TestSuite.lineSeparator;
 	protected static boolean debug = true;
 	
@@ -25,16 +37,19 @@ public abstract class TypeVisitorTest {
 	 */
 	protected static void configureParser(String source, String type, int expectedDeclarationCount, int expectedReferenceCount) {
 		switch (_TestSuite.TYPE_VISITOR_VERSION) {
-		case 0:
+		case MAIN:
 			configureParserMain(source, type, expectedDeclarationCount, expectedReferenceCount);
 			break;
-		case 107:
+		case I1G7:
 			configureParser_1_7(source, type, expectedDeclarationCount, expectedReferenceCount);
 			break;
-		case 111:
+		case I1G8:
+			configureParser_1_8(source, type, expectedDeclarationCount, expectedReferenceCount);
+			break;
+		case I1G11:
 			configureParser_1_11(source, type, expectedDeclarationCount, expectedReferenceCount);
 			break;
-		case 112:
+		case I1G12:
 			configureParser_1_12(source, type, expectedDeclarationCount, expectedReferenceCount);
 			break;
 		default:
@@ -96,6 +111,57 @@ public abstract class TypeVisitorTest {
 	}
 	
 	
+	/**
+	 * ITERATION 1 GROUP 8
+	 * Configures ASTParser and visitor for source file
+	 *
+	 * @param source
+	 * @param expectedDeclarationCount
+	 * @param expectedReferenceCount
+	 */
+	private static void configureParser_1_8(String source, String type, int expectedDeclarationCount, int expectedReferenceCount) {
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		parser.setSource(source.toCharArray());
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		parser.setResolveBindings(true);
+		parser.setBindingsRecovery(true);
+		// these are needed for binding to be resolved due to SOURCE is a char[]
+		String[] srcPath = { _TestSuite.SOURCE_DIR };
+		String[] classPath = { _TestSuite.BIN_DIR };
+		parser.setEnvironment(classPath, srcPath, null, true);
+		// parser.setEnvironment(null, null, null, true);
+		// TODO: Fix up the name to be something other than name?
+		parser.setUnitName("Name");
+
+		// ensures nodes are being parsed properly
+		Map<String, String> options = JavaCore.getOptions();
+		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
+		parser.setCompilerOptions(options);
+
+		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+
+		TypeVisitor8 visitor = new TypeVisitor8();
+		cu.accept(visitor);
+
+		int decl_count = 0;
+		int ref_count = 0;
+		try {
+			decl_count = visitor.getDecCount().get(type);
+		} catch (Exception e) {
+
+		}
+		try {
+			ref_count = visitor.getRefCount().get(type);
+		} catch (Exception e) {
+
+		}
+
+		assertEquals(expectedDeclarationCount, decl_count);
+		assertEquals(expectedReferenceCount, ref_count);
+
+	}
 	/**
 	 * ITERATION 1 GROUP 11
 	 * Configures ASTParser and visitor for source file
