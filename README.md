@@ -70,7 +70,7 @@ Resources
 Contact
 ------------
 
-Evan Quan - evan.quan@ucalgary.ca
+Evan Quan - 10154242 - evan.quan@ucalgary.ca
 
 Mona Agh - mona.agh1@ucalgary.ca
 
