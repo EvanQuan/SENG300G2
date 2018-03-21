@@ -12,5 +12,12 @@ public class MainTest {
 			}
 			Foo foo = new Foo();
 		}
+
+		public void m2(int x) {
+			class Foo{
+				
+			}
+			Foo foo = new Foo();
+		}
 }
 

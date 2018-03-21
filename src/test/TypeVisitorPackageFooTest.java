@@ -9,6 +9,7 @@ import main.ast.TypeVisitor;
  * reference counts for bar.Foo
  *
  * @author Evan Quan
+ * @version 1.0.0
  * @since 12 March 2018
  *
  */

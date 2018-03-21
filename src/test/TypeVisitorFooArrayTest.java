@@ -9,7 +9,8 @@ import main.ast.TypeVisitor;
  * reference counts for Foo[]
  *
  * @author Evan Quan
- * @since 20 March 2018
+ * @version 2.0.0
+ * @since 21 March 2018
  *
  */
 public class TypeVisitorFooArrayTest extends TypeVisitorTest {

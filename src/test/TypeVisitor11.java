@@ -13,6 +13,10 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
+/**
+ * Iteration 1: Group 11
+ *
+ */
 public class TypeVisitor11 extends ASTVisitor {
 
 	public int declarationCount;

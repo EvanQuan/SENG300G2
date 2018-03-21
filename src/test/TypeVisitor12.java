@@ -9,6 +9,10 @@ import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+/**
+ * Iteration 1 Group 12
+ *
+ */
 public class TypeVisitor12 extends ASTVisitor {
 
 	public int declarationCounter;

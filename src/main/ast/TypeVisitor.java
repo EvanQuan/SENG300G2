@@ -34,16 +34,13 @@ import main.util.Multiset;
  * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/VariableDeclarationFragment.html
  * 
  * @author Evan Quan
- * @version 1.2.0
- *
+ * @version 2.3.0
  * @since 21 March 2018
  */
 public class TypeVisitor extends ASTVisitor {
 
 	private boolean debug;
 	private ArrayList<String> types;
-//	private HashMap<String, Integer> declarations;
-//	private HashMap<String, Integer> references;
 	private Multiset<String> declarations;
 	private Multiset<String> references;
 
@@ -58,8 +55,6 @@ public class TypeVisitor extends ASTVisitor {
 	private void addTypeToList(String type) {
 		if (!types.contains(type)) {
 			types.add(type);
-//			declarations.put(type, 0);
-//			references.put(type, 0);
 		}
 	}
 
@@ -71,8 +66,7 @@ public class TypeVisitor extends ASTVisitor {
 	 */
 	private void incrementDeclaration(String type) {
 		// Check if the type exists, then increment their associated value by 1
-//		if (declarations.containsKey(type)) {
-//			declarations.put(type, declarations.get(type) + 1);
+		addTypeToList(type);
 		declarations.add(type);
 	}
 
@@ -84,9 +78,7 @@ public class TypeVisitor extends ASTVisitor {
 	 */
 	private void incrementReference(String type) {
 		// Check if the type exists, then increment their associated value by 1
-//		if (references.containsKey(type)) {
-//			references.put(type, references.get(type) + 1);
-//		}
+		addTypeToList(type);
 		references.add(type);
 	}
 
@@ -187,7 +179,6 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("AnnotationTypeDeclaration", type);
-		addTypeToList(type);
 		incrementDeclaration(type);
 
 		return true;
@@ -233,9 +224,8 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("ArrayType", type);
-
-		addTypeToList(type);
 		incrementReference(type);
+
 		return true;
 	}
 
@@ -248,7 +238,6 @@ public class TypeVisitor extends ASTVisitor {
 		// void is not a primitive type
 		if (!type.equals("void")) {
 			debug("PrimitiveType", type);
-			addTypeToList(type);
 			incrementReference(type);
 		}
 		return true;
@@ -261,9 +250,8 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("QualifiedType", type);
-
-		addTypeToList(type);
 		incrementReference(type);
+
 		return true;
 	}
 	
@@ -274,7 +262,6 @@ public class TypeVisitor extends ASTVisitor {
 //		String type = node.getFullyQualifiedName();
 //
 //		debug("QualifiedName", type);
-//		addTypeToList(type);
 //		incrementReference(type);
 		return true;
 	}
@@ -285,7 +272,6 @@ public class TypeVisitor extends ASTVisitor {
 //		String type = node.getFullyQualifiedName();
 
 //		debug("SimpleName", type);
-//		addTypeToList(type);
 //		incrementReference(type);
 		return true;
 	}
@@ -330,7 +316,6 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("EnumDeclaration", type);
-		addTypeToList(type);
 		incrementDeclaration(type);
 
 		return true;
@@ -355,7 +340,6 @@ public class TypeVisitor extends ASTVisitor {
 		}
 
 		debug("SimpleType", type);
-		addTypeToList(type);
 		incrementReference(type);
 
 		// Check for ArrayTypes
@@ -499,7 +483,6 @@ public class TypeVisitor extends ASTVisitor {
 			// Since we want a fully qualified class name, we reject only package name.
 			if (type.contains(".")) {
 				debug("ImportDeclaration", type);
-				addTypeToList(type);
 				incrementReference(type);
 			}
 		}
@@ -531,8 +514,8 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("MarkerAnnotation", type);
-		addTypeToList(type);
 		incrementReference(type);
+
 		return true;
 	}
 
@@ -615,7 +598,6 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("NormalAnnotation", type);
-		addTypeToList(type);
 		incrementReference(type);
 
 		return true;
@@ -628,8 +610,8 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("SingleMemberAnnotation", type);
-		addTypeToList(type);
 		incrementReference(type);
+
 		return true;
 	}
 
@@ -698,7 +680,6 @@ public class TypeVisitor extends ASTVisitor {
 		String type = typeBind.getQualifiedName();
 
 		debug("TypeDeclaration", type);
-		addTypeToList(type);
 		incrementDeclaration(type);
 
 		return true;

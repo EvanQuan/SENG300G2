@@ -9,16 +9,24 @@ import main.ast.TypeVisitor;
  * reference counts for Java built-in classes
  *
  * @author Evan Quan
- * @since 12 March, 2018
+ * @version 2.0.0
+ * @since 12 March 2018
  *
  */
 public class TypeVisitorBuiltInTest extends TypeVisitorTest {
 
+	/**
+	 * Check that allocating an array of String counts as a reference to java.lang.String 
+	 * */
 	@Test
 	public void testArrayDeclarableVariableAndAllocate_Dec_0_Ref_1() {
 		configureParser("public class Other {Bar[] bar = new String[1];}", "java.lang.String", 0, 1);
 	}
 
+
+	/**
+	 * Check that declaring and allocating arrays of Strings count as references to java.lang.String
+	 */
 	@Test
 	public void testArrayDeclarableVariableAndAllocate_Dec_0_Ref_2() {
 		configureParser("public class Other {String[] str = new String[1];}", "java.lang.String", 0, 2);

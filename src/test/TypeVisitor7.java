@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 /**
- * Group 7 TypeVisitor
+ * Iteration 1 Group 7 TypeVisitor
  *
  */
 public class TypeVisitor7 extends ASTVisitor {

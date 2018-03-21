@@ -29,7 +29,7 @@ public abstract class TypeVisitorTest {
 	protected static boolean debug = true;
 	
 	/**
-	 * 
+	 * Determines which Visitor to use
 	 * @param source
 	 * @param type
 	 * @param expectedDeclarationCount

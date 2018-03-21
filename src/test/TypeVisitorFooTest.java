@@ -9,6 +9,7 @@ import main.ast.TypeVisitor;
  * reference counts for Foo
  *
  * @author Evan Quan
+ * @version 2.0.0
  * @since 14 March 2018
  *
  */
@@ -269,7 +270,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that declaring an variable of another class that references Foo as
+	 * Check that declaring an variable of another class that references Foo as
 	 * a generic parameter and instantiates it counts as 2 references
 	 */
 	@Test
@@ -278,7 +279,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that declaring an variable of another class that references Foo as
+	 * Check that declaring an variable of another class that references Foo as
 	 * a generic parameter twice and instantiates it counts as 4 references
 	 */
 	@Test
@@ -287,7 +288,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that declaring an variable of another class that references Foo as
+	 * Check that declaring an variable of another class that references Foo as
 	 * a generic parameter twice and instantiates it counts as 4 references, with
 	 * another third generic parameter of another class
 	 */
@@ -297,7 +298,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check if a variable declaration within a switch statement counts as a
+	 * Check if a variable declaration within a switch statement counts as a
 	 * reference
 	 */
 	@Test
@@ -307,7 +308,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that calling a static field which returns and stores a value
+	 * Check that calling a static field which returns and stores a value
 	 * counts as a reference
 	 */
 	@Test
@@ -316,7 +317,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that calling a static method which returns and stores a value
+	 * Check that calling a static method which returns and stores a value
 	 * counts as a reference
 	 */
 	@Test
@@ -325,7 +326,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that retrieving and setting a static field counts as a reference
+	 * Check that retrieving and setting a static field counts as a reference
 	 */
 	@Test
 	public void test_SetStaticField_Dec_0_Ref_1() {
@@ -333,7 +334,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that calling a void static method with a parameter counts as a
+	 * Check that calling a void static method with a parameter counts as a
 	 * reference
 	 */
 	@Test
@@ -342,7 +343,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that declaring variable of parameterized Foo counts as a reference
 	 */
 	@Test
 	public void test_ParameterizedTypeVariableDeclaration_Dec_0_Ref_1() {
@@ -350,7 +351,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that declaring and instantiating variable  of parameterized Foo counts as 2 references
 	 */
 	@Test
 	public void test_ParameterizedTypeVariableInstantiation_Dec_0_Ref_2() {
@@ -358,15 +359,15 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that casting a variable to Foo counts as a reference
 	 */
 	@Test
-	public void test_Casting_Dec_0_Ref_2() {
-		configureParser("public class Other { Foo foo = (Foo) bar;}", type, 0, 2);
+	public void test_Casting_Dec_0_Ref_1() {
+		configureParser("public class Other { Bar bar = (Foo) foo;}", type, 0, 1);
 	}
 
 	/**
-	 * TODO
+	 * Check that a foreach loop counts as a reference
 	 */
 	@Test
 	public void test_ForEachLoop_Dec_0_Ref_1() {
@@ -374,7 +375,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that checking if a variable is instanceof Foo counts as a reference
 	 */
 	@Test
 	public void test_Instanceof_Dec_0_Ref_3() {
@@ -384,7 +385,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that declaring a method that throws a Foo exception counts as a reference
 	 */
 	@Test
 	public void test_MethodDeclarationThrowsException_Dec_0_Ref_1() {
@@ -392,7 +393,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that a method throwing a new Foo exception counts as a reference
 	 */
 	@Test
 	public void test_MethodBodyThrowException_Dec_0_Ref_1() {
@@ -400,7 +401,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that having a Foo exception in a catch guard counts as a reference
 	 */
 	@Test
 	public void test_CatchGuard_Dec_0_Ref_1() {
@@ -408,7 +409,7 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that declaring a class that directly inherits from Foo counts as a reference
 	 */
 	@Test
 	public void test_ExtendsDeclaration_Dec_0_Ref_1() {
@@ -416,20 +417,24 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO
+	 * Check that declaring a variable of wildcard parameterized Foo counts as a reference
 	 */
 	@Test
 	public void test_WildcardParamterFieldDeclaration_Dec_0_Ref_1() {
 		configureParser("public class Other {Foo<?> foo;}", type, 0, 1);
 	}
 
-	/** * TODO
+	/**
+	 * Check that declaring and instantiating a variable of wildcard parameterized Foo counts as 2 references
 	 */
 	@Test
 	public void test_CaseSensitive_Dec_0_Ref_2() {
 		configureParser("public class FoO { FOo foo = new FoO(); Foo foO = new Foo();}", type, 0, 2);
 	}
 
+	/**
+	 * Check that instantiating an instance of Foo as an argument of another method call counts as a reference
+	 */
 	@Test
 	public void test_InstantiateInMethod_Dec_0_Ref_1() {
 		configureParser("public class Other { public void method() { Bar bar = new Bar(); bar.accept(new Foo()); } }", type, 0, 1);

@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 /**
- * TypeVisitor.java
+ * Iteration 1 Group 8
  *
  * A visitor for abstract syntax trees. For each different concrete AST node
  * type T, the visitor will locate the different java types present in the
