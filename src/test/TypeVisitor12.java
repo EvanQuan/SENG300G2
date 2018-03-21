@@ -1,4 +1,4 @@
-package test.iteration1.group12;
+package test;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;

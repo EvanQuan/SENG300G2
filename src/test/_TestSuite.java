@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeVisitorBuiltInTest.class, TypeVisitorFooTest.class,
+@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
 		TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 
 /**
@@ -38,5 +38,8 @@ public class _TestSuite {
 	 * Line separator changes depending on operating system. JUnitTests dealing with
 	 * file contents should consider this.
 	 */
-	public static String lineSeparator = System.getProperty("line.separator");
+	public static final String lineSeparator = System.getProperty("line.separator");
+	
+	// Group class versions
+	public static final int TYPE_VISITOR_VERSION = 0;
 }

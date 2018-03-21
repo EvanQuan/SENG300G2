@@ -1,4 +1,4 @@
-package test.iteration1.group7;
+package test;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;

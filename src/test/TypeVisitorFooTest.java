@@ -431,20 +431,12 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 		configureParser("public class Other {Foo<?> foo;}", type, 0, 1);
 	}
 
-	/**
-	 * TODO
-	 */
-	@Test
-	public void test_NestedClassDeclaration_Dec_1_Ref_0() {
-		configureParser("public class Other { public class Foo {} }", type, 1, 0);
-	}
-
-	/**
-	 * TODO
+	/** * TODO
 	 */
 	@Test
 	public void test_CaseSensitive_Dec_0_Ref_2() {
 		configureParser("public class FoO { FOo foo = new FoO(); Foo foO = new Foo();}", type, 0, 2);
 	}
-	
+
+
 }
