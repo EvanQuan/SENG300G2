@@ -9,8 +9,8 @@ import main.ast.TypeVisitor;
  * reference counts for Foo declared inside another class
  *
  * @author Evan Quan
- * @version 2.0.2
- * @since 12 March 2018
+ * @version 2.0.3
+ * @since 22 March 2018
  *
  */
 public class TypeVisitorInnerFooTest extends TypeVisitorTest {
@@ -37,7 +37,7 @@ public class TypeVisitorInnerFooTest extends TypeVisitorTest {
 	 */
 	@Test
 	public void test_ClassDeclarationLocalToMethodNoParameters_Dec_1_Ref_0() {
-		configureParser("public class Other { public void method() { class Foo{} } }", "Other.method().Foo", 1, 0);
+		configureParser("public class Other { public void method() { class Foo{} } }", "Foo", 1, 0);
 	}
 	
 
@@ -47,7 +47,7 @@ public class TypeVisitorInnerFooTest extends TypeVisitorTest {
 	 */
 	@Test
 	public void test_ClassDeclarationLocalToMethodWithParameters1_Dec_1_Ref_0() {
-		configureParser("public class Other { public void method(int x) { class Foo{} } }", "Other.method(...).Foo", 1, 0);
+		configureParser("public class Other { public void method(int x) { class Foo{} }", "Foo", 1, 0);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class TypeVisitorInnerFooTest extends TypeVisitorTest {
 	 */
 	@Test
 	public void test_ClassDeclarationLocalToMethodWithParameters2_Dec_1_Ref_0() {
-		configureParser("public class Other { public void method(int x, long y) { class Foo{} } }", "Other.method(...).Foo", 1, 0);
+		configureParser("public class Other { public void method(int x, long y) { class Foo{} } }", "Foo", 1, 0);
 	}
 	
 	/**
