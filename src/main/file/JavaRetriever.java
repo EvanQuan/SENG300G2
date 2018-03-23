@@ -29,6 +29,8 @@ public class JavaRetriever {
 	 * Cannot instantiate... for now.
 	 * NOTE: Uninstantiable class with static methods or Singleton better?
 	 * If JavaRetriever had fields, then Singleton...?
+	 * 
+	 *
 	 */
 	private JavaRetriever() {
 	}
@@ -51,7 +53,8 @@ public class JavaRetriever {
 		}
 	}
 	/**
-	 * Get Java contents from a path of a directory, .jar, or .zip file.
+	 * Get Java contents from a path of a directory, .jar, or .zip file. works for directories containing different filetypes
+	 * like folders, zip files and .java files. if the input is a path directly to a jar file, the method handles this special case.
 	 *
 	 * @param path
 	 *            where Java contents are located. Can be a directory, .jar, or .zip file.
@@ -62,34 +65,41 @@ public class JavaRetriever {
 		java.io.File directory = new java.io.File(path);
 		java.io.File[] dirContents= directory.listFiles();
 		
-		try {
-		
-			for(java.io.File file: dirContents) {
-				
-				String currPath = file.getAbsolutePath();
-				int pathType = checkPathType(currPath);
-				
-				if(pathType == DIRECTORY) {
-						
-					ArrayList<File> javaDirContents= getJavaContentsFromDirectory(currPath);
-					allJavaContents.addAll(javaDirContents);
-				
-				}else if(pathType == JAR) {
-					
-					ArrayList<File> jarContents = getJavaContentsFromJar(currPath);
-					allJavaContents.addAll(jarContents);
-				
-				}else if(pathType == JAVA) {
-					
-					String fileContents = FileManager.getFileContents(currPath);
-					String fileName = file.getName();
-					JavaFile javaFile = new JavaFile(fileName, currPath, fileContents);
-					allJavaContents.add(javaFile);
-				}	
-			}
+		if(checkPathType(path) == JAR) {
 			
-		}catch(IOException e){
-			e.printStackTrace();
+			allJavaContents = getJavaContentsFromJar(path);  //path is directly to a jar or zip file
+			
+		}else {
+			
+			try {
+			
+				for(java.io.File file: dirContents) {	//goes through all files in directory, handles the searching accordingly
+					
+					String currPath = file.getAbsolutePath();
+					int pathType = checkPathType(currPath);
+					
+					if(pathType == DIRECTORY) {
+							
+						ArrayList<File> javaDirContents= getJavaContentsFromDirectory(currPath);
+						allJavaContents.addAll(javaDirContents);
+					
+					}else if(pathType == JAR) {
+						
+						ArrayList<File> jarContents = getJavaContentsFromJar(currPath);
+						allJavaContents.addAll(jarContents);
+					
+					}else if(pathType == JAVA) {
+						
+						String fileContents = FileManager.getFileContents(currPath);
+						String fileName = file.getName();
+						JavaFile javaFile = new JavaFile(fileName, currPath, fileContents);
+						allJavaContents.add(javaFile);
+					}	
+				}
+				
+			}catch(IOException e){
+				e.printStackTrace();
+			}
 		}
 		return allJavaContents;
 	}
