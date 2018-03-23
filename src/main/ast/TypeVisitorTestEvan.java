@@ -2,42 +2,27 @@ package main.ast;
 
 import java.util.ArrayList;
 
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.ArrayType;
-import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PrimitiveType;
-import org.eclipse.jdt.core.dom.QualifiedName;
-import org.eclipse.jdt.core.dom.QualifiedType;
 import org.eclipse.jdt.core.dom.SimpleName;
-import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import main.util.Multiset;
 
 /**
- * A visitor for abstract syntax trees. For each different concrete AST node
- * type T, the visitor will locate the different java types present in the
- * source code, and count the number of declarations of references for each of
- * the java types present.
- * 
- * Type and subtypes
- * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/Type.html
- * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/VariableDeclarationFragment.html
+ * Just testing to see what can be done with SimpleName
  * 
  * @author Evan Quan
  * @version 2.3.0
  * @since 21 March 2018
  */
-public class TypeVisitor extends ASTVisitor {
+public class TypeVisitorTestEvan extends ASTVisitor {
 
 	private boolean debug;
 	private ArrayList<String> types;
@@ -104,7 +89,7 @@ public class TypeVisitor extends ASTVisitor {
 	 * Default constructor. Initialize the list of types, and the HashMaps for the
 	 * counters to null.
 	 */
-	public TypeVisitor() {
+	public TypeVisitorTestEvan() {
 		this(false); // Debug is false
 	}
 
@@ -113,7 +98,7 @@ public class TypeVisitor extends ASTVisitor {
 	 * 
 	 * @param debug
 	 */
-	public TypeVisitor(boolean debug) {
+	public TypeVisitorTestEvan(boolean debug) {
 		this.debug = debug;
 		this.types = new ArrayList<String>();
 //		this.declarations = new HashMap<String, Integer>();
@@ -230,7 +215,7 @@ public class TypeVisitor extends ASTVisitor {
 	}
 
 	// TODO return here
-	@Override
+//	@Override
 	public boolean visit(PrimitiveType node) {
 		ITypeBinding typeBind = node.resolveBinding();
 		String type = typeBind.getQualifiedName();
@@ -244,59 +229,60 @@ public class TypeVisitor extends ASTVisitor {
 	}
 
 	// TODO what is this for? Example of QualifiedType
-	@Override
-	public boolean visit(QualifiedType node) {
-		ITypeBinding typeBind = node.resolveBinding();
-		String type = typeBind.getQualifiedName();
-
-		debug("QualifiedType", type);
-		incrementReference(type);
-
-		return true;
-	}
+//	@Override
+//	public boolean visit(QualifiedType node) {
+//		ITypeBinding typeBind = node.resolveBinding();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("QualifiedType", type);
+//		incrementReference(type);
+//
+//		return true;
+//	}
 	
 	// TODO Remove?
 	// These can detect static methods/fields. is there some other way?
-	/**
-	 * Used to detect static field calls.
-	 */
-	@Override
-	public boolean visit(QualifiedName node) {
-//		ITypeBinding typeBind = node.resolveTypeBinding();
-//		if (typeBind != null) {
-//			String type = typeBind.getQualifiedName();
-//			debug("QualifiedName", type);
-//		}
-		String type = node.getFullyQualifiedName();
-		debug("QualifiedName", type);
-//
-//		incrementReference(type);
-		return true;
-	}
+//	@Override
+//	public boolean visit(QualifiedName node) {
+////		String type = node.getFullyQualifiedName();
+////
+////		debug("QualifiedName", type);
+////		incrementReference(type);
+//		return true;
+//	}
 	// TODO Remove?
 	// These can detect static methods/fields. is there some other way?
 	@Override
 	public boolean visit(SimpleName node) {
 		String type = node.getFullyQualifiedName();
-		ASTNode parent = node.getParent();
-		Class<? extends ASTNode> parentNode = parent.getClass();
-		String parentNodeName = parentNode.getSimpleName();
+		ITypeBinding typeBind = node.resolveTypeBinding();
 
-		debug("SimpleName", type);
-		debug("SimpleNameParent", parentNodeName);
-//		incrementReference(type);
+		// Add package name if does not contain package name and not in default package
+		IPackageBinding packBind = typeBind.getPackage();
+		String packName = packBind.getName();
+		if (!type.contains(".") && packName.length() > 0) {
+			type = packName + "." + type;
+		}
+
+		if (node.isDeclaration()) {
+			debug("Declaration SimpleName", type);
+			incrementDeclaration(type);
+		} else {
+			debug("Reference SimpleName", type);
+			incrementReference(type);
+		}
 		return true;
 	}
 	
-	@Override
-	public void preVisit(ASTNode node) {
+//	@Override
+//	public void preVisit(ASTNode node) {
 //		debug("\n\nPREVISIT");
-	}
-	
-	@Override
-	public void postVisit(ASTNode node) {
+//	}
+//	
+//	@Override
+//	public void postVisit(ASTNode node) {
 //		debug("POSTVISIT");
-	}
+//	}
 	// TODO
 	// What is this?
 //	@Override
@@ -322,45 +308,46 @@ public class TypeVisitor extends ASTVisitor {
 	 *            : EnumDeclaration
 	 * @return boolean : True to visit the children of this node
 	 */
-	@Override
-	public boolean visit(EnumDeclaration node) {
-		ITypeBinding typeBind = node.resolveBinding();
-		String type = typeBind.getQualifiedName();
-
-		debug("EnumDeclaration", type);
-		incrementDeclaration(type);
-
-		return true;
-	}
+//	@Override
+//	public boolean visit(EnumDeclaration node) {
+//		ITypeBinding typeBind = node.resolveBinding();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("EnumDeclaration", type);
+//		incrementDeclaration(type);
+//
+//		return true;
+//	}
 
 	/**
 	 * Intent: replace FieldDeclaration TODO Does this result in double count?
 	 */
-	@Override
-	public boolean visit(SimpleType node) {
-		ITypeBinding typeBind = node.resolveBinding();
-		String type;
-		// Strips parameterized generics off
-		type = typeBind.getTypeDeclaration().getQualifiedName();
-
-		// Add package name if does not contain package name and not in default package
-		IPackageBinding packBind = typeBind.getPackage();
-		String packName = packBind.getName();
-		if (!type.contains(".") && packName.length() > 0) {
-			type = packName + "." + type;
-		}
-
-		debug("SimpleType", type);
-		incrementReference(type);
-
-		// Check for ArrayTypes
-		// Should count for both simple and array
-		if (node.isArrayType()) {
-
-		}
-
-		return true;
-	}
+//	@Override
+//	public boolean visit(SimpleType node) {
+//		ITypeBinding typeBind = node.resolveBinding();
+//		String type;
+//		// Strips parameterized generics off
+//		type = typeBind.getTypeDeclaration().getQualifiedName();
+//		
+//
+//		// Add package name if does not contain package name and not in default package
+//		IPackageBinding packBind = typeBind.getPackage();
+//		String packName = packBind.getName();
+//		if (!type.contains(".") && packName.length() > 0) {
+//			type = packName + "." + type;
+//		}
+//
+//		debug("SimpleType", type);
+//		incrementReference(type);
+//
+//		// Check for ArrayTypes
+//		// Should count for both simple and array
+//		if (node.isArrayType()) {
+//
+//		}
+//
+//		return true;
+//	}
 
 	/**
 	 * Intent: replace FieldDeclaration TODO Does this result in double count?
@@ -486,20 +473,20 @@ public class TypeVisitor extends ASTVisitor {
 	 * 
 	 * Gets "bar.Foo"
 	 */
-	@Override
-	public boolean visit(ImportDeclaration node) {
-		if (node.getName().resolveTypeBinding() != null) {
-			String type = node.getName().toString();
-			// Importing wildcard (eg. import bar.*) will return only package name (bar).
-			// Since we want a fully qualified class name, we reject only package name.
-			if (type.contains(".")) {
-				debug("ImportDeclaration", type);
-				incrementReference(type);
-			}
-		}
-
-		return true;
-	}
+//	@Override
+//	public boolean visit(ImportDeclaration node) {
+//		if (node.getName().resolveTypeBinding() != null) {
+//			String type = node.getName().toString();
+//			// Importing wildcard (eg. import bar.*) will return only package name (bar).
+//			// Since we want a fully qualified class name, we reject only package name.
+//			if (type.contains(".")) {
+//				debug("ImportDeclaration", type);
+//				incrementReference(type);
+//			}
+//		}
+//
+//		return true;
+//	}
 
 	/**
 	 * Visits a Marker annotation node type. Marker annotation "@<typeName>" is
@@ -518,17 +505,17 @@ public class TypeVisitor extends ASTVisitor {
 	 *         java.lang.* e.g. @Test from org.junit.Test appears as
 	 *         <currentPackage>.Test
 	 */
-	@Override
-	public boolean visit(MarkerAnnotation node) {
-		IAnnotationBinding annBind = node.resolveAnnotationBinding();
-		ITypeBinding typeBind = annBind.getAnnotationType();
-		String type = typeBind.getQualifiedName();
-
-		debug("MarkerAnnotation", type);
-		incrementReference(type);
-
-		return true;
-	}
+//	@Override
+//	public boolean visit(MarkerAnnotation node) {
+//		IAnnotationBinding annBind = node.resolveAnnotationBinding();
+//		ITypeBinding typeBind = annBind.getAnnotationType();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("MarkerAnnotation", type);
+//		incrementReference(type);
+//
+//		return true;
+//	}
 
 	/**
 	 * Visits a Method declaration node type. Method declaration is a union of
@@ -685,23 +672,16 @@ public class TypeVisitor extends ASTVisitor {
 	 * @return boolean : True to visit the children of this node
 	 */
 	// TODO This is to be override by children nodes
-	@Override
-	public boolean visit(TypeDeclaration node) {
-		ITypeBinding typeBind = node.resolveBinding();
-		String type = typeBind.getQualifiedName();
-
-		// Local classes do not have qualified names, only simple names
-		if (type.equals("")) {
-			type = typeBind.getTypeDeclaration().getName();
-			debug("TypeDclaration LOCAL", type);
-		} else {
-			debug("TypeDeclaration", type);
-		}
-
-		incrementDeclaration(type);
-
-		return true;
-	}
+//	@Override
+//	public boolean visit(TypeDeclaration node) {
+//		ITypeBinding typeBind = node.resolveBinding();
+//		String type = typeBind.getQualifiedName();
+//
+//		debug("TypeDeclaration", type);
+//		incrementDeclaration(type);
+//
+//		return true;
+//	}
 
 	/**
 	 * Visits a local variable declaration statement node type. This type of node
