@@ -122,8 +122,6 @@ public class TypeVisitor extends ASTVisitor {
 	public TypeVisitor(boolean debug) {
 		this.debug = debug;
 		this.types = new ArrayList<String>();
-//		this.declarations = new HashMap<String, Integer>();
-//		this.references = new HashMap<String, Integer>();
 		this.declarations = new Multiset<String>();
 		this.references = new Multiset<String>();
 	}
@@ -133,9 +131,6 @@ public class TypeVisitor extends ASTVisitor {
 	 *
 	 * @return declarations
 	 */
-//	public HashMap<String, Integer> getDeclarations() {
-//		return declarations;
-//	}
 	public Multiset<String> getDeclarations() {
 		return declarations;
 	}
@@ -154,9 +149,6 @@ public class TypeVisitor extends ASTVisitor {
 	 *
 	 * @return references
 	 */
-//	public HashMap<String, Integer> getReferences() {
-//		return references;
-//	}
 	public Multiset<String> getReferences() {
 		return references;
 	}
@@ -381,6 +373,7 @@ public class TypeVisitor extends ASTVisitor {
 		return true;
 	}
 	
+	@Override
 	public boolean visit(PackageDeclaration node) {
 		IPackageBinding packageBind = node.resolveBinding();
 		packageName = packageBind.getName();
@@ -672,6 +665,7 @@ public class TypeVisitor extends ASTVisitor {
 	 * @return boolean true to visit its children nodes
 	 */
 //	@Override
+	@Override
 	public boolean visit(NormalAnnotation node) {
 		IAnnotationBinding annBind = node.resolveAnnotationBinding();
 		ITypeBinding typeBind = annBind.getAnnotationType();
