@@ -6,6 +6,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.ArrayType;
+import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IPackageBinding;
@@ -22,6 +23,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import main.util.Multiset;
 
@@ -260,26 +262,37 @@ public class TypeVisitor extends ASTVisitor {
 	
 	/**
 	 * Used to detect static field calls.
+	 * type: Class.field
+	 * qualifier: Class
 	 */
 	@Override
 	public boolean visit(QualifiedName node) {
 		String type = node.getFullyQualifiedName();
 		debug("QualifiedName", type);
+		debug("\tnode.getName(): " + node.getName());
+		debug("\tnode.getFullyQualifiedName(): " + node.getFullyQualifiedName());
+		debug("\tnode.getQualifier(): " + node.getQualifier());
 		
 		// RETURN HERE
 		Name qualifier = node.getQualifier();
+		String qualifierName = qualifier.getFullyQualifiedName();
 		if (!qualifier.isQualifiedName()) {
-			type = appendPackageName(type);
+			qualifierName = appendPackageName(qualifierName);
 		}
+		debug("\tname qualified: " + qualifierName);
 
 		ASTNode parent = node.getParent();
 		Class<? extends ASTNode> parentNode = parent.getClass();
 		String parentNodeName = parentNode.getSimpleName();
 		
-		debug("\tQualifier", type);
-		debug("\tParent", parentNodeName);
+		debug("\tParent: " + parentNodeName);
 //
-		incrementReference(type);
+		// Check parent.
+		// VariableDeclarationFragment means staticField returned
+		// Assignment means static field set
+		if (parentNode.equals(VariableDeclarationFragment.class) || parentNode.equals(Assignment.class)) {
+			incrementReference(qualifierName);
+		}
 		return true;
 	}
 
@@ -300,6 +313,9 @@ public class TypeVisitor extends ASTVisitor {
 	
 	// TODO Remove?
 	// These can detect static methods/fields. is there some other way?
+	/**
+	 * Detects static method calls
+	 */
 	@Override
 	public boolean visit(SimpleName node) {
 		String type = node.getFullyQualifiedName();

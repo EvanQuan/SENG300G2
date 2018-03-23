@@ -127,4 +127,13 @@ public class TypeVisitorPackageFooTest extends TypeVisitorTest {
 		configureParser("package bar; public class Other { public void method() { Foo.staticField = 3;} }", type, 0, 1);
 	}
 
+	/**
+	 * Check that setting the field of Foo does not count as a reference. This is relevant where field node checks may count a reference to Foo even if it does not show up in the code.
+	 */
+	@Test
+	public void test_SetField_Dec_1_Ref_0() {
+		configureParser("package bar; public class Foo { public static int field; public void method() { field = 3;} }", type, 1, 0);
+	}
+
+
 }
