@@ -1,23 +1,13 @@
 package test;
 
+import java.io.IOException;
+
 public class MainTest {
 
 	public class Inner {}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		main.file.FileManager.getFileContents("hi");
 	}
 	
-		public void method() {
-			class Foo{
-				
-			}
-			Foo foo = new Foo();
-		}
-
-		public void m2(int x) {
-			class Foo{
-				
-			}
-			Foo foo = new Foo();
-		}
 }
 

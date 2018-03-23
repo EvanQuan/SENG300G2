@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
@@ -38,8 +39,8 @@ import main.util.Multiset;
  * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/VariableDeclarationFragment.html
  * 
  * @author Evan Quan
- * @version 2.3.0
- * @since 21 March 2018
+ * @version 2.4.0
+ * @since 23 March 2018
  */
 public class TypeVisitor extends ASTVisitor {
 
@@ -312,20 +313,26 @@ public class TypeVisitor extends ASTVisitor {
 	
 	
 	// TODO Remove?
-	// These can detect static methods/fields. is there some other way?
 	/**
 	 * Detects static method calls
 	 */
 	@Override
 	public boolean visit(SimpleName node) {
-		String type = node.getFullyQualifiedName();
 		ASTNode parent = node.getParent();
 		Class<? extends ASTNode> parentNode = parent.getClass();
 		String parentNodeName = parentNode.getSimpleName();
 		
-		debug("SimpleName", type);
-		debug("SimpleNameParent", parentNodeName);
-//		incrementReference(type);
+		
+		// Check parent.
+		// MethodInvocation means staticMethod is called
+		if (parentNode.equals(MethodInvocation.class)) {
+			String type = node.getFullyQualifiedName();
+			type = appendPackageName(type);
+			debug("SimpleName", type);
+			debug("\tParent" + parentNodeName);
+			incrementReference(type);
+
+		}
 		return true;
 	}
 
