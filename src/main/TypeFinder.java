@@ -156,31 +156,6 @@ public class TypeFinder {
 	}
 
 	/**
-	 * Initiates the program
-	 *
-	 * @param args
-	 *            command line arguments args[0] path of directory/jar file of
-	 *            interest args[1] fully qualified name of Java type to search for
-	 *            declarations and references
-	 */
-	public static void main(String[] args) {
-		// Check if user input is valid and set up
-		boolean validInput = processInput(args);
-		if (!validInput) {
-			return; // End program
-		}
-
-		// Find declaration and reference counts
-		javaFiles = JavaRetriever.getJavaContents(sourcePath);
-		//findDeclarationsAndReferences();
-
-		// Final output
-		//printDeclarationsAndReferences();
-		System.out.println(javaFiles);
-
-	}
-
-	/**
 	 * Sorts types and prints all types, and declaration and reference counts of
 	 * each type.
 	 */
@@ -227,8 +202,27 @@ public class TypeFinder {
 	}
 
 	/**
-	 * Cannot be instantiated
+	 * Initiates the program
+	 *
+	 * @param args
+	 *            command line arguments args[0] path of directory/jar file of
+	 *            interest args[1] fully qualified name of Java type to search for
+	 *            declarations and references
 	 */
-	private TypeFinder() {
+	public static void main(String[] args) {
+		// Check if user input is valid and set up
+		boolean validInput = processInput(args);
+		if (!validInput) {
+			return; // End program
+		}
+
+		// Find declaration and reference counts
+		//javaFiles = JavaRetriever.getJavaContents(sourcePath);
+		//findDeclarationsAndReferences();
+
+		// Final output
+		//printDeclarationsAndReferences();
+		System.out.println(javaFiles);
+
 	}
 }

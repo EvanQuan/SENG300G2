@@ -23,6 +23,7 @@ public class JavaRetriever {
 	private static final int OTHER = 0;
 	private static final int DIRECTORY = 1;
 	private static final int JAR = 2;
+	private static final int JAVA = 3;
 	
 	/**
 	 * Cannot instantiate... for now.
@@ -42,7 +43,10 @@ public class JavaRetriever {
 			return DIRECTORY;
 		} else if (FileManager.isValidJarFile(path)) {
 			return JAR;
-		} else {
+		} else if (FileManager.isValidJavaFile(path)) {
+			return JAVA;
+		}	
+		else {
 			return OTHER;
 		}
 	}
@@ -54,17 +58,45 @@ public class JavaRetriever {
 	 * @return Java contents, null if invalid path
 	 */
 	public static ArrayList<File> getJavaContents(String path) {
-		int pathType = checkPathType(path);
+		ArrayList<File> allJavaContents = new ArrayList<File>();
+		java.io.File directory = new java.io.File(path);
+		java.io.File[] dirContents= directory.listFiles();
 		
-		switch(pathType) {
-			case DIRECTORY:
-				return getJavaContentsFromDirectory(path);
-			case JAR:
-				return getJavaContentsFromJar(path);
-			default:
-				return null;
+		try {
+		
+			for(java.io.File file: dirContents) {
+				
+				String currPath = file.getAbsolutePath();
+				int pathType = checkPathType(currPath);
+				
+				if(pathType == DIRECTORY) {
+						
+					ArrayList<File> javaDirContents= getJavaContentsFromDirectory(currPath);
+					allJavaContents.addAll(javaDirContents);
+				
+				}else if(pathType == JAR) {
+					
+					ArrayList<File> jarContents = getJavaContentsFromJar(currPath);
+					allJavaContents.addAll(jarContents);
+				
+				}else if(pathType == JAVA) {
+					
+					String fileContents = FileManager.getFileContents(currPath);
+					String fileName = file.getName();
+					JavaFile javaFile = new JavaFile(fileName, currPath, fileContents);
+					allJavaContents.add(javaFile);
+				}	
+			}
+			
+		}catch(IOException e){
+			e.printStackTrace();
 		}
+		return allJavaContents;
 	}
+	
+	
+	
+	
 	/**
 	 * Finds all Java files in a given .jar file and returns its contents as
 	 * {@link JarFile}s
@@ -102,6 +134,8 @@ public class JavaRetriever {
 		}
 		return filesInJar;	
 	}
+	
+
 	
 	/**
 	 * Finds all Java files in a given directory and sub-directories and returns
