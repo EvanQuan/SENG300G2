@@ -110,4 +110,21 @@ public class TypeVisitorPackageFooTest extends TypeVisitorTest {
 		configureParser("package other; import bar.Foo; class Other {}", type, 0, 1);
 	}
 
+	/**
+	 * Check that calling a static field which returns and stores a value
+	 * counts as a reference
+	 */
+	@Test
+	public void test_ReturnStaticField_Dec_0_Ref_1() {
+		configureParser("package bar; public class Other { Bar bar = Foo.staticField;}", type, 0, 1);
+	}
+
+	/**
+	 * Check that retrieving and setting a static field counts as a reference
+	 */
+	@Test
+	public void test_SetStaticField_Dec_0_Ref_1() {
+		configureParser("package bar; public class Other { public void method() { Foo.staticField = 3;} }", type, 0, 1);
+	}
+
 }

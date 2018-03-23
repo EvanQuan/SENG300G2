@@ -12,7 +12,9 @@ import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
+import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.QualifiedType;
@@ -43,6 +45,7 @@ public class TypeVisitor extends ASTVisitor {
 	private ArrayList<String> types;
 	private Multiset<String> declarations;
 	private Multiset<String> references;
+	private String packageName;
 
 	/**
 	 * Checks if the passed type already exists within the types list. [false -> add
@@ -85,13 +88,13 @@ public class TypeVisitor extends ASTVisitor {
 	/*
 	 * ========================= DEBUG FUNCTIONS =========================
 	 */
-	private void debug(String message) {
+	private void debug(Object message) {
 		if (debug) {
 			System.out.println(message);
 		}
 	}
 
-	private void debug(String node, String type) {
+	private void debug(Object node, Object type) {
 		if (debug) {
 			System.out.println("Node: " + node + " | Type: " + type);
 		}
@@ -255,24 +258,46 @@ public class TypeVisitor extends ASTVisitor {
 		return true;
 	}
 	
-	// TODO Remove?
-	// These can detect static methods/fields. is there some other way?
 	/**
 	 * Used to detect static field calls.
 	 */
 	@Override
 	public boolean visit(QualifiedName node) {
-//		ITypeBinding typeBind = node.resolveTypeBinding();
-//		if (typeBind != null) {
-//			String type = typeBind.getQualifiedName();
-//			debug("QualifiedName", type);
-//		}
 		String type = node.getFullyQualifiedName();
 		debug("QualifiedName", type);
+		
+		// RETURN HERE
+		Name qualifier = node.getQualifier();
+		if (!qualifier.isQualifiedName()) {
+			type = appendPackageName(type);
+		}
+
+		ASTNode parent = node.getParent();
+		Class<? extends ASTNode> parentNode = parent.getClass();
+		String parentNodeName = parentNode.getSimpleName();
+		
+		debug("\tQualifier", type);
+		debug("\tParent", parentNodeName);
 //
-//		incrementReference(type);
+		incrementReference(type);
 		return true;
 	}
+
+//	public boolean visit(MethodInvocation node) {
+//		SimpleName methodName = node.getName();
+//		debug("MethodInvocation", methodName.toString());
+//
+//
+//		ASTNode parent = node.getParent();
+//		Class<? extends ASTNode> parentNode = parent.getClass();
+//		String parentNodeName = parentNode.getSimpleName();
+//		
+//		debug("\tParent", parentNodeName);
+//
+//		return true;
+//	}
+	
+	
 	// TODO Remove?
 	// These can detect static methods/fields. is there some other way?
 	@Override
@@ -281,13 +306,13 @@ public class TypeVisitor extends ASTVisitor {
 		ASTNode parent = node.getParent();
 		Class<? extends ASTNode> parentNode = parent.getClass();
 		String parentNodeName = parentNode.getSimpleName();
-
+		
 		debug("SimpleName", type);
 		debug("SimpleNameParent", parentNodeName);
 //		incrementReference(type);
 		return true;
 	}
-	
+
 	@Override
 	public void preVisit(ASTNode node) {
 //		debug("\n\nPREVISIT");
@@ -331,6 +356,27 @@ public class TypeVisitor extends ASTVisitor {
 		incrementDeclaration(type);
 
 		return true;
+	}
+	
+	public boolean visit(PackageDeclaration node) {
+		IPackageBinding packageBind = node.resolveBinding();
+		packageName = packageBind.getName();
+		debug("PackageDeclaration", packageName);
+		return true;
+	}
+	
+	/**
+	 * Append the current package name to name if it exists
+	 * @param name
+	 * @return
+	 */
+	private String appendPackageName(String name) {
+		debug("\tBEFORE APPEND:" + name);
+		if (packageName != null && !name.contains(".")) { // Check if in default package
+			name = packageName + "." + name;
+		}
+		debug("\tAFTER APPEND:" + name);
+		return name;
 	}
 
 	/**
