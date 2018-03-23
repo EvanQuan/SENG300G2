@@ -12,10 +12,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import main.ast.TypeVisitor;
 import main.file.ClassFile;
 import main.file.File;
-import main.file.FileManager;
-import main.file.JarRetriever;
 import main.file.JavaFile;
-import main.file.JavaFileRetriever;
 import main.file.JavaRetriever;
 
 /**
@@ -174,7 +171,7 @@ public class TypeFinder {
 		}
 
 		// Find declaration and reference counts
-		javaFiles = retriever.getJavaContents(sourcePath);
+		javaFiles = JavaRetriever.getJavaContents(sourcePath);
 		//findDeclarationsAndReferences();
 
 		// Final output
@@ -217,18 +214,14 @@ public class TypeFinder {
 		// Get input from command line arguments
 		sourcePath = args[SOURCE_PATH];
 
-		// Determine which type of retriever to use depending on input
-		if (FileManager.isValidDirectory(sourcePath)) {
-			retriever = JavaFileRetriever.getInstance();
-		} else if (FileManager.isValidJarFile(sourcePath)) {
-			retriever = JarRetriever.getInstance();
-		} else {
+
+		// Get all all Java files from directory or jar file
+		javaFiles = JavaRetriever.getJavaContents(sourcePath);
+		if (javaFiles == null) {
 			System.err.println(INVALID_PATH_ERROR_MESSAGE);
 			return false;
 		}
 
-		// Get all all Java files from directory or jar file
-		javaFiles = retriever.getJavaContents(sourcePath);
 
 		return true;
 	}
