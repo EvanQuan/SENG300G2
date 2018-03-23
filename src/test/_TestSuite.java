@@ -33,7 +33,7 @@ public class _TestSuite {
 	/**
 	 * All test directories are contained with test directory TEST_DIR
 	 */
-	public static final String JAVA_FILE_RETRIEVER_TEST_DIR = TEST_DIR.concat("javaFileRetriever/");
+	public static final String JAVA_RETRIEVER_TEST_DIR = TEST_DIR.concat("javaRetriever/");
 	public static final String TYPE_FINDER_TEST_DIR = TEST_DIR.concat("typeFinderTestPackage/");
 	/**
 	 * Line separator changes depending on operating system. JUnitTests dealing with

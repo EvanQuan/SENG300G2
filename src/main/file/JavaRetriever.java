@@ -1,24 +1,172 @@
 package main.file;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 
 /**
- * Retrieves Java contents from a location.
+ * Retrieves Java file contents from a path. Path can be a directory, .jar, or .zip file.
  *
  * @author Evan Quan
- * @version 1.0.0
- * @since March 18, 2018
+ * @author Marcello Di Benedetto
+ * @version 2.0.0
+ * @since March 22, 2018
  *
  */
-public interface JavaRetriever {
+public class JavaRetriever {
+
+	private static final int OTHER = 0;
+	private static final int DIRECTORY = 1;
+	private static final int JAR = 2;
+	
+	/**
+	 * Cannot instantiate... for now.
+	 * NOTE: Uninstantiable class with static methods or Singleton better?
+	 * If JavaRetriever had fields, then Singleton...?
+	 */
+	private JavaRetriever() {
+	}
 
 	/**
-	 * Get Java contents from a path
+	 * Determine the type of path
+	 * @param path
+	 * @return the type of path
+	 */
+	private static int checkPathType(String path) {
+		if (FileManager.isValidDirectory(path)) {
+			return DIRECTORY;
+		} else if (FileManager.isValidJarFile(path)) {
+			return JAR;
+		} else {
+			return OTHER;
+		}
+	}
+	/**
+	 * Get Java contents from a path of a directory, .jar, or .zip file.
 	 *
 	 * @param path
-	 *            where Java contents are located
+	 *            where Java contents are located. Can be a directory, .jar, or .zip file.
 	 * @return Java contents, null if invalid path
 	 */
-	public ArrayList<File> getJavaContents(String path);
+	public static ArrayList<File> getJavaContents(String path) {
+		int pathType = checkPathType(path);
+		
+		switch(pathType) {
+			case DIRECTORY:
+				return getJavaContentsFromDirectory(path);
+			case JAR:
+				return getJavaContentsFromJar(path);
+			default:
+				return null;
+		}
+	}
+	/**
+	 * Finds all Java files in a given .jar file and returns its contents as
+	 * {@link JarFile}s
+	 *
+	 * @param path
+	 *            of .jar file of interest
+	 * @return contents of all .java files within the given jar
+	 */
+	private static ArrayList<File> getJavaContentsFromJar(String path) {
+		
+		ArrayList<File> filesInJar = new ArrayList<File>();
+		JarInputStream jarStream;
+		JarFile jar;
+		JarEntry currFile;
+		
+		try {
+			
+			jarStream = new JarInputStream(new FileInputStream(path));
+			jar = new JarFile(path);
+			
+			while((currFile = jarStream.getNextJarEntry()) != null) {
+				
+				if(currFile.getName().endsWith(".java")){
+					
+					String fileContents = FileManager.getFileContents(jar, currFile);
+					String fileName = currFile.getName();
+					String filePath = path;
+					JavaFile javaFile = new JavaFile(fileName, filePath, fileContents);
+					filesInJar.add(javaFile);
+				}
+			}
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return filesInJar;	
+	}
+	
+	/**
+	 * Finds all Java files in a given directory and sub-directories and returns
+	 * their contents as {@link JavaFile}s
+	 *
+	 * @param path
+	 *            of directory of interest
+	 * @return contents of all Java files as Strings, null if path is not valid
+	 * @throws NotDirectoryException
+	 *             if directory cannot be found
+	 */
+	private static ArrayList<File> getJavaContentsFromDirectory(String path) {
+		ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
+		try {
+			getAllJavaFilesFromDirectoryRecursiveHelper(path, javaFiles);
+			// Sort Java files alphabetically by name and then path (for predictability)
+			// Cast to IJavaFile
+			Collections.sort(javaFiles);
+			return new ArrayList<File>(javaFiles);
+		} catch (NotDirectoryException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Recursively finds and all Java files and appends them to javaFiles ArrayList.
+	 * Helper method to getAllJavaFiles.
+	 *
+	 * @param path
+	 *            of directory of interest
+	 * @param javaFiles
+	 *            to append Java files to
+	 * @return contents of all Java files as Strings
+	 * @throws NotDirectoryException
+	 *             if directory cannot be found
+	 */
+	private static void getAllJavaFilesFromDirectoryRecursiveHelper(String path, ArrayList<JavaFile> javaFiles) throws NotDirectoryException {
+		// Get all the files in the directory
+		java.io.File directory = new java.io.File(path);
+		java.io.File[] files = directory.listFiles();
+		// If this pathname does not denote a directory, then listFiles() returns null.
+		if (files == null) {
+			throw new NotDirectoryException(path);
+		}
+
+		// Iterate through all files in directory
+		try {
+			for (java.io.File file : files) {
+				if (file.isDirectory()) {
+					// Recursively search through inner directory
+					String innerPath = file.getAbsolutePath();
+					getAllJavaFilesFromDirectoryRecursiveHelper(innerPath, javaFiles);
+				} else if (file.isFile() && file.getName().endsWith(JavaFile.EXTENSION)) {
+					// Only accept Java files
+					String javaName = file.getName();
+					String javaPath = file.getAbsolutePath();
+					String javaSource = FileManager.getFileContents(javaPath);
+					JavaFile javaFile = new JavaFile(javaName, javaPath, javaSource);
+					javaFiles.add(javaFile);
+				} // else ignore file
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			// This is already dealt with with NotDirectoryException
+		}
+	}
 
 }
