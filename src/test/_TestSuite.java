@@ -36,11 +36,6 @@ public class _TestSuite {
 	public static final String JAVA_RETRIEVER_TEST_DIR = TEST_DIR.concat("javaRetriever/");
 	public static final String JAR_RETRIEVER_TEST_DIR = TEST_DIR.concat("jarRetriever/");
 	public static final String TYPE_FINDER_TEST_DIR = TEST_DIR.concat("typeFinderTestPackage/");
-	/**
-	 * Line separator changes depending on operating system. JUnitTests dealing with
-	 * file contents should consider this.
-	 */
-	public static final String lineSeparator = System.getProperty("line.separator");
 	
 	// Group class versions
 	public static final int TYPE_VISITOR_VERSION = TypeVisitorTest.MAIN;

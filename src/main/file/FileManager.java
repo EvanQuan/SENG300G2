@@ -14,11 +14,17 @@ import java.util.jar.JarFile;
  * Reads and retrieves contents of files and directories
  *
  * @author Evan Quan
- * @version 1.0.0
- * @since March 18, 2018
+ * @version 1.1.0
+ * @since 25 March 2018
  *
  */
 public class FileManager {
+
+	/**
+	 * Line separator changes depending on operating system. JUnitTests dealing with
+	 * file contents should consider this.
+	 */
+	public static final String lineSeparator = System.getProperty("line.separator");
 
 	/**
 	 * Reads the contents of a file with a given path and returns the contents of
