@@ -4,10 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
+
+
 
 /**
  * Retrieves Java file contents from a path. Path can be a directory, .jar, or .zip file.
@@ -58,9 +59,9 @@ public class JavaRetriever {
 	 *
 	 * @param path
 	 *            where Java contents are located. Can be a directory, .jar, or .zip file.
-	 * @return Java contents, null if invalid path
+	 * @return 
 	 */
-	public static ArrayList<File> getJavaContents(String path) {
+	public static ArrayList<File> getJavaContents(String path) throws NotDirectoryException{
 		ArrayList<File> allJavaContents = new ArrayList<File>();
 		java.io.File directory = new java.io.File(path);
 		java.io.File[] dirContents= directory.listFiles();
@@ -69,7 +70,7 @@ public class JavaRetriever {
 			
 			allJavaContents = getJavaContentsFromJar(path);  //path is directly to a jar or zip file
 			
-		}else {
+		}else if(checkPathType(path) == DIRECTORY){
 			
 			try {
 			
@@ -100,9 +101,14 @@ public class JavaRetriever {
 			}catch(IOException e){
 				e.printStackTrace();
 			}
+			
+		}else {
+			throw new NotDirectoryException(path);
 		}
 		return allJavaContents;
 	}
+		
+
 	
 	
 	
@@ -142,11 +148,10 @@ public class JavaRetriever {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		return filesInJar;	
+		return filesInJar;
 	}
 	
 
-	
 	/**
 	 * Finds all Java files in a given directory and sub-directories and returns
 	 * their contents as {@link JavaFile}s
@@ -158,12 +163,12 @@ public class JavaRetriever {
 	 *             if directory cannot be found
 	 */
 	private static ArrayList<File> getJavaContentsFromDirectory(String path) {
-		ArrayList<JavaFile> javaFiles = new ArrayList<JavaFile>();
+		ArrayList<File> javaFiles = new ArrayList<File>();
 		try {
 			getAllJavaFilesFromDirectoryRecursiveHelper(path, javaFiles);
 			// Sort Java files alphabetically by name and then path (for predictability)
 			// Cast to IJavaFile
-			Collections.sort(javaFiles);
+			//Collections.sort(javaFiles);
 			return new ArrayList<File>(javaFiles);
 		} catch (NotDirectoryException e) {
 			return null;
@@ -182,7 +187,7 @@ public class JavaRetriever {
 	 * @throws NotDirectoryException
 	 *             if directory cannot be found
 	 */
-	private static void getAllJavaFilesFromDirectoryRecursiveHelper(String path, ArrayList<JavaFile> javaFiles) throws NotDirectoryException {
+	private static void getAllJavaFilesFromDirectoryRecursiveHelper(String path, ArrayList<File> javaFiles) throws NotDirectoryException {
 		// Get all the files in the directory
 		java.io.File directory = new java.io.File(path);
 		java.io.File[] files = directory.listFiles();
@@ -198,6 +203,7 @@ public class JavaRetriever {
 					// Recursively search through inner directory
 					String innerPath = file.getAbsolutePath();
 					getAllJavaFilesFromDirectoryRecursiveHelper(innerPath, javaFiles);
+					
 				} else if (file.isFile() && file.getName().endsWith(JavaFile.EXTENSION)) {
 					// Only accept Java files
 					String javaName = file.getName();
@@ -205,7 +211,16 @@ public class JavaRetriever {
 					String javaSource = FileManager.getFileContents(javaPath);
 					JavaFile javaFile = new JavaFile(javaName, javaPath, javaSource);
 					javaFiles.add(javaFile);
-				} // else ignore file
+					
+				}else if (FileManager.isValidJarFile(file.getAbsolutePath())) {
+					
+					//System.out.println("found valid jar in nested directory");
+					String innerJarPath = file.getAbsolutePath();
+					ArrayList<File> javaFilesInJar = getJavaContentsFromJar(innerJarPath);
+					javaFiles.addAll(javaFilesInJar);
+					
+				}
+				// else ignore file
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

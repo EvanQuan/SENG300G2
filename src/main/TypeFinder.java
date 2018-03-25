@@ -1,5 +1,6 @@
 package main;
 
+import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
@@ -191,12 +192,14 @@ public class TypeFinder {
 
 
 		// Get all all Java files from directory or jar file
-		javaFiles = JavaRetriever.getJavaContents(sourcePath);
-		if (javaFiles == null) {
+		
+		try {
+			
+			javaFiles = JavaRetriever.getJavaContents(sourcePath);
+		
+		}catch(NotDirectoryException e) {
 			System.err.println(INVALID_PATH_ERROR_MESSAGE);
-			return false;
 		}
-
 
 		return true;
 	}
@@ -223,6 +226,6 @@ public class TypeFinder {
 		// Final output
 		//printDeclarationsAndReferences();
 		System.out.println(javaFiles);
-
+		
 	}
 }

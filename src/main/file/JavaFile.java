@@ -18,7 +18,9 @@ public class JavaFile extends File {
 	 * File extension of a Jar file
 	 */
 	public static final String JAR_EXTENSION = ".jar";
-
+	
+	
+	public static final String ZIP_EXTENSION = ".zip";
 	/**
 	 * Clone constructor for JavaFile
 	 *
