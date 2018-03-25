@@ -100,6 +100,7 @@ public class FileManager {
 	 * @return true if path is a jar file that exists, else false
 	 */
 	public static boolean isValidJarFile(String path) {
+		
 		return new File(path).isFile() && (path.endsWith(JavaFile.JAR_EXTENSION)|| path.endsWith(".zip"));
 	}
 
