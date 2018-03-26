@@ -134,4 +134,23 @@ public class TypeVisitorPackageFooTest extends TypeVisitorTest {
 	public void test_SetField_Dec_1_Ref_0() {
 		configureParser("package bar; public class Foo { public static int field; public void method() { field = 3;} }", type, 1, 0);
 	}
+	
+
+	/**
+	 * Check that calling a static field which returns and stores a value
+	 * counts as a reference
+	 */
+	@Test
+	public void test_ReturnStaticFieldQualified_Dec_0_Ref_1() {
+		configureParser("package other; public class Other { Bar2 bar2 = bar.Foo.staticField;}", type, 0, 1);
+	}
+
+	/**
+	 * Check that retrieving and setting a static field counts as a reference
+	 */
+	@Test
+	public void test_SetStaticFieldQualified_Dec_0_Ref_1() {
+		configureParser("package other; public class Other { public void method() { bar.Foo.staticField = 3;} }", type, 0, 1);
+	}
+
 }

@@ -38,7 +38,4 @@ public class _TestSuite {
 	 * test.typeFinder package directory
 	 */
 	public static final String TYPE_FINDER_TEST_DIR = TEST_DIR.concat("typeFinder/");
-	
-	// Group class versions
-	public static final int TYPE_VISITOR_VERSION = TypeVisitorTest.MAIN;
 }

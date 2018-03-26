@@ -23,12 +23,12 @@ public class TypeFinderJarTest extends TypeFinderTest {
 	/**
 	 * Check that jars can be checked inside jars
 	 */
-	@Test
-	public void test_Jar_typeFinder_JarsInJar() {
-		String directory = _TestSuite.TYPE_FINDER_TEST_DIR;
-		String jarName = "JarsInJar.jar";
-		testOutput(directory, jarName);
-	}
+//	@Test
+//	public void test_Jar_typeFinder_JarsInJar() {
+//		String directory = _TestSuite.TYPE_FINDER_TEST_DIR;
+//		String jarName = "JarsInJar.jar";
+//		testOutput(directory, jarName);
+//	}
 	
 	/**
 	 * Tests that TypeFinder finds and output the correct declaration and reference counts of the given input path.

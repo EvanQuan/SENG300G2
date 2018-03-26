@@ -199,7 +199,7 @@ public class TypeVisitorBuiltInTest extends TypeVisitorTest {
 	}
 
 	/**
-	 * TODO Check that a reference to String as a generic parameter of Foo defaults
+	 * Check that a reference to String as a generic parameter of Foo defaults
 	 * to java.lang.String
 	 */
 	@Test
@@ -207,4 +207,11 @@ public class TypeVisitorBuiltInTest extends TypeVisitorTest {
 		configureParser("class Other { Foo<String> foo = new Foo<String>();}", "java.lang.String", 0, 2);
 	}
 
+	/**
+	 * Check that explicitly using fully qualified names works
+	 */
+	@Test
+	public void test_ArrayList_FullyQualified_Dec_0_Ref_2() {
+		configureParser("class Other {java.util.ArrayList<String> list = new java.util.ArrayList<String>():", "java.util.ArrayList", 0, 2);
+	}
 }

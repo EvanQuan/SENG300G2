@@ -15,19 +15,27 @@ import main.file.FileManager;
 /**
  * 
  * @author Evan Quan
- * @version 1.0.0
- * @since 21 March 2018
+ * @version 2.0.0
+ * @since 25 March 2018
  *
  */
 public abstract class TypeVisitorTest {
 
+	// Current visitor
 	public static final int MAIN = 0;
+	// Iteration 1 visitors
 	public static final int I1G7 = 107;
 	public static final int I1G8 = 108;
 	public static final int I1G11 = 111;
 	public static final int I1G12 = 112;
 	protected static String ls = FileManager.lineSeparator;
 	protected static boolean debug = true;
+	
+	
+	/**
+	 * Change this to the visitor that you want to test
+	 */
+	public static final int CURRENT_VISITOR_TO_TEST = MAIN;
 	
 	/**
 	 * Determines which Visitor to use
@@ -37,7 +45,7 @@ public abstract class TypeVisitorTest {
 	 * @param expectedReferenceCount
 	 */
 	protected static void configureParser(String source, String type, int expectedDeclarationCount, int expectedReferenceCount) {
-		switch (_TestSuite.TYPE_VISITOR_VERSION) {
+		switch (CURRENT_VISITOR_TO_TEST) {
 		case MAIN:
 			configureParserMain(source, type, expectedDeclarationCount, expectedReferenceCount);
 			break;
