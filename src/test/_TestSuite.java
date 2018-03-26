@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
+@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeFinderDirectoryTest.class, TypeFinderJarTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
 		TypeVisitorPrimitiveTest.class, TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 
 /**

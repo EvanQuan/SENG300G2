@@ -136,7 +136,7 @@ public class JavaRetriever {
 			
 			while((currFile = jarStream.getNextJarEntry()) != null) {
 				
-				if(currFile.getName().endsWith(".java")){
+				if(currFile.getName().endsWith(JavaFile.EXTENSION)){
 					
 					String fileContents = FileManager.getFileContents(jar, currFile);
 					String fileName = currFile.getName();

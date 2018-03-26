@@ -23,8 +23,8 @@ import main.file.JavaRetriever;
  * type with that directory (recursively) or .jar file.
  *
  * @author Evan Quan
- * @version 1.1.0
- * @since March 18, 2018
+ * @version 2.1.0
+ * @since 25 March 2018
  *
  */
 public class TypeFinder {
@@ -202,6 +202,7 @@ public class TypeFinder {
 		
 		}catch(NotDirectoryException e) {
 			System.err.println(INVALID_PATH_ERROR_MESSAGE);
+			return false;
 		}
 
 		return true;

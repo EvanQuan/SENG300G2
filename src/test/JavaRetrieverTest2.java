@@ -1,8 +1,10 @@
 package test;
 
+import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 
 import main.file.File;
+import main.file.JavaFile;
 import main.file.JavaRetriever;
 
 /**
@@ -15,11 +17,16 @@ import main.file.JavaRetriever;
  */
 public class JavaRetrieverTest2 {
 	public static void main(String[] args) {
-		ArrayList<File> javaFiles = JavaRetriever.getJavaContents(_TestSuite.JAVA_RETRIEVER_TEST_DIR);
-
-		for (File javaFile : javaFiles) {
-			System.out.println(javaFile);
+		ArrayList<JavaFile> javaFiles;
+		try {
+			javaFiles = JavaRetriever.getJavaContents(_TestSuite.JAVA_RETRIEVER_TEST_DIR);
+			for (File javaFile : javaFiles) {
+				System.out.println(javaFile);
+			}
+		} catch (NotDirectoryException e) {
+			e.printStackTrace();
 		}
+
 
 	}
 }
