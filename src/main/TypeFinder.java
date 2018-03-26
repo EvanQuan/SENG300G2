@@ -23,7 +23,7 @@ import main.file.JavaRetriever;
  * type with that directory (recursively) or .jar file.
  *
  * @author Evan Quan
- * @version 2.1.0
+ * @version 2.2.0
  * @since 25 March 2018
  *
  */
@@ -62,7 +62,6 @@ public class TypeFinder {
 
 	private static String sourcePath;
 
-	private static JavaRetriever retriever;
 	private static ArrayList<JavaFile> javaFiles;
 	private static TypeVisitor visitor;
 

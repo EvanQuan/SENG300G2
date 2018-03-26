@@ -10,15 +10,15 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({ JavaFileTest.class, PassTest.class, TypeFinderDirectoryTest.class, TypeFinderJarTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
+@Suite.SuiteClasses({ FileManagerTest.class, JavaFileTest.class, JavaRetrieverTest.class, PassTest.class, TypeFinderDirectoryTest.class, TypeFinderJarTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
 		TypeVisitorPrimitiveTest.class, TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 
 /**
  * Runs all test classes
  *
  * @author Evan Quan
- * @version 2.2.0
- * @since 25 March 2018
+ * @version 2.3.0
+ * @since 26 March 2018
  *
  */
 public class _TestSuite {
@@ -34,6 +34,7 @@ public class _TestSuite {
 	 * test.javaRetriever package directory
 	 */
 	public static final String JAVA_RETRIEVER_TEST_DIR = TEST_DIR.concat("javaRetriever/");
+	public static final String JAVA_RETRIEVERMISC_TEST_DIR = TEST_DIR.concat("javaRetrieverMisc/");
 	/**
 	 * test.typeFinder package directory
 	 */
