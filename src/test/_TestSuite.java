@@ -17,14 +17,14 @@ import org.junit.runners.Suite;
  * Runs all test classes
  *
  * @author Evan Quan
- * @version 2.1.0
- * @since 23 March 2018
+ * @version 2.2.0
+ * @since 25 March 2018
  *
  */
 public class _TestSuite {
 	/**
-	 * Base directory is the root of the entire eclipse project (which is the PARENT
-	 * of the src folder)
+	 * Base directory is always root of the entire eclipse project (which is the PARENT
+	 * of the src folder).
 	 */
 	public static final String BASEDIR = new File("").getAbsolutePath().concat("/");
 	public static final String SOURCE_DIR = BASEDIR.concat("src/");
