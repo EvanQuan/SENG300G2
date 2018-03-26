@@ -34,10 +34,6 @@ import main.util.Multiset;
  * source code, and count the number of declarations of references for each of
  * the java types present.
  * 
- * Type and subtypes
- * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/Type.html
- * http://help.eclipse.org/kepler/ntopic/org.eclipse.jdt.doc.isv/reference/api/org/eclipse/jdt/core/dom/VariableDeclarationFragment.html
- * 
  * @author Evan Quan
  * @version 2.5.0
  * @since 25 March 2018
