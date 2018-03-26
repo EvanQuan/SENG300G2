@@ -10,6 +10,7 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import main.ast.TypeVisitor;
+import main.file.FileManager;
 
 /**
  * 
@@ -25,7 +26,7 @@ public abstract class TypeVisitorTest {
 	public static final int I1G8 = 108;
 	public static final int I1G11 = 111;
 	public static final int I1G12 = 112;
-	protected static String ls = _TestSuite.lineSeparator;
+	protected static String ls = FileManager.lineSeparator;
 	protected static boolean debug = true;
 	
 	/**

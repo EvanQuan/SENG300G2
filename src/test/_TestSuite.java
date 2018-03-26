@@ -31,11 +31,13 @@ public class _TestSuite {
 	public static final String TEST_DIR = SOURCE_DIR.concat("test/");
 	public static final String BIN_DIR = BASEDIR.concat("bin/");
 	/**
-	 * All test directories are contained with test directory TEST_DIR
+	 * test.javaRetriever package directory
 	 */
 	public static final String JAVA_RETRIEVER_TEST_DIR = TEST_DIR.concat("javaRetriever/");
-	public static final String JAR_RETRIEVER_TEST_DIR = TEST_DIR.concat("jarRetriever/");
-	public static final String TYPE_FINDER_TEST_DIR = TEST_DIR.concat("typeFinderTestPackage/");
+	/**
+	 * test.typeFinder package directory
+	 */
+	public static final String TYPE_FINDER_TEST_DIR = TEST_DIR.concat("typeFinder/");
 	
 	// Group class versions
 	public static final int TYPE_VISITOR_VERSION = TypeVisitorTest.MAIN;

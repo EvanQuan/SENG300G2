@@ -134,6 +134,4 @@ public class TypeVisitorPackageFooTest extends TypeVisitorTest {
 	public void test_SetField_Dec_1_Ref_0() {
 		configureParser("package bar; public class Foo { public static int field; public void method() { field = 3;} }", type, 1, 0);
 	}
-
-
 }

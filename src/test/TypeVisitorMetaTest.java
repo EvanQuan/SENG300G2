@@ -16,32 +16,34 @@ public class TypeVisitorMetaTest extends TypeVisitorTest {
 
 	// METHODS
 
-
-	@Test
-	public void test_ReturnStaticMethodQualified_Dec_0_Ref_1() {
-		System.out.println("\nSTART 2");
-		configureParser("package bar; public class Other { Bar bar = pack2.Foo.staticMethod();}", type, 0, 1);
-	}
+//	@Test
+//	public void test_ReturnStaticMethodQualified_Dec_0_Ref_1() {
+//		System.out.println("\nSTART 2");
+//		configureParser("package bar; public class Other { Bar bar = pack2.Foo.staticMethod();}", type, 0, 1);
+//	}
 
 	
+	// IMPORT FROM DEFAULT PACKAGE
 	
-	// FIELDS
-	/**
-	 * Check that calling a static field which returns and stores a value
-	 * counts as a reference
+	/*
+	 * Check that importing Foo from the Default package, which is not valid Java syntax, still counts as a reference to Foo
 	 */
 //	@Test
-//	public void test_ReturnStaticField_Dec_0_Ref_1() {
-//		System.out.println("START");
-//		configureParser("package bar; public class Other { Bar bar = Foo.staticField;}", type, 0, 1);
+//	public void test_ImportFromDefaultPackage_Dec_0_Ref_1() {
+//		configureParser("package bar; import Foo; public class Other {}", type, 0, 1);
 //	}
-//
-//	/**
-//	 * Check that retrieving and setting a static field counts as a reference
-//	 */
+	
+	/**
+	 * Check that importing Foo from the Default package, which is not valid Java syntax, now sets all simple names of Foo as default Package Foo even with a package declared
+	 */
+	@Test
+	public void test_ImportFromDefaultPackageFieldDeclaration_Dec_0_Ref_2() {
+		configureParser("package bar; import Foo; public class Other { private Foo foo; }", "Foo", 0, 2);
+	}
+//	
 //	@Test
-//	public void test_SetStaticField_Dec_0_Ref_1() {
-//		configureParser("package bar; public class Other { public void method() { Foo.staticField = 3;} }", type, 0, 1);
+//	public void test_ImportFromDefaultPackage2MethodDeclaration_Dec_0_Ref_2() {
+//		configureParser("package bar; import Foo; public class Other { public void method(Foo foo) {} }", type, 0, 2);
 //	}
 	
 }

@@ -9,8 +9,8 @@ import main.ast.TypeVisitor;
  * reference counts for Foo
  *
  * @author Evan Quan
- * @version 2.0.0
- * @since 14 March 2018
+ * @version 2.1.0
+ * @since 25 March 2018
  *
  */
 public class TypeVisitorFooTest extends TypeVisitorTest {
@@ -470,5 +470,26 @@ public class TypeVisitorFooTest extends TypeVisitorTest {
 	@Test
 	public void test_ParameterizedInClassDeclarationGenericExtends_Dec_0_Ref_1() {
 		configureParser("public class Bar<T extends Foo<String>> {}", type, 0, 1);
+	}
+	
+	/*
+	 * Check that importing Foo from the Default package, which is not valid Java syntax, still counts as a reference to Foo
+	 */
+	@Test
+	public void test_ImportFromDefaultPackage_Dec_0_Ref_1() {
+		configureParser("package bar; import Foo; public class Other {}", type, 0, 1);
+	}
+	
+	/**
+	 * Check that importing Foo from the Default package, which is not valid Java syntax, now sets all simple names of Foo as default Package Foo even with a package declared
+	 */
+	@Test
+	public void test_ImportFromDefaultPackageFieldDeclaration_Dec_0_Ref_2() {
+		configureParser("package bar; import Foo; public class Other { private Foo foo; }", type, 0, 2);
+	}
+	
+	@Test
+	public void test_ImportFromDefaultPackage2MethodDeclaration_Dec_0_Ref_2() {
+		configureParser("package bar; import Foo; public class Other { public void method(Foo foo) {} }", type, 0, 2);
 	}
 }

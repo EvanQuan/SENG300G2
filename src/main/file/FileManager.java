@@ -40,7 +40,6 @@ public class FileManager {
 		FileReader fileReader = new FileReader(path);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		StringBuffer stringBuffer = new StringBuffer();
-		String lineSeparator = System.getProperty("line.separator");
 
 		// Keep reading line by line (and ending with a line separator)
 		// Until no more lines can be read

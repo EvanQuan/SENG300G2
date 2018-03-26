@@ -63,29 +63,32 @@ public class TypeFinder {
 	private static String sourcePath;
 
 	private static JavaRetriever retriever;
-	private static ArrayList<File> javaFiles;
+	private static ArrayList<JavaFile> javaFiles;
 	private static TypeVisitor visitor;
 
 	/**
 	 * Iterate through all Java files and find the declarations and references of
 	 * all Java types
 	 */
-	private static void findDeclarationsAndReferences() {
+	private static TypeVisitor findDeclarationsAndReferences() {
 		// Initialize visitor once, so types, declarations, and references accumulate
 		// over all files
 		visitor = new TypeVisitor();
 
 		// For every file iterated through, types, declarations, and references are
 		// updated.
-		for (File file : javaFiles) {
+		for (JavaFile file : javaFiles) {
 			ASTParser parser = getConfiguredASTParser(file);
 			CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+			visitor.resetToNewFile();
 			cu.accept(visitor);
 		}
+		
+		return visitor;
 	}
 
 	/**
-	 *
+	 * NOTE: Unused currently. May be used for iteration 3.
 	 * @param file
 	 *            to set as source
 	 * @return ASTParser configured to parse CompilationUnits for JLS8
@@ -219,13 +222,11 @@ public class TypeFinder {
 			return; // End program
 		}
 
-		// Find declaration and reference counts
-		//javaFiles = JavaRetriever.getJavaContents(sourcePath);
-		//findDeclarationsAndReferences();
+
+		// Find declaration and reference counts of java files
+		findDeclarationsAndReferences();
 
 		// Final output
-		//printDeclarationsAndReferences();
-		System.out.println(javaFiles);
-		
+		printDeclarationsAndReferences();
 	}
 }
