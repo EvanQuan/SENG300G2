@@ -1,0 +1,464 @@
+commit 18bcc9aaa429141af9b4bb8a2e1715c94eb7ae2a
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 02:00:34 2018 -0600
+
+    Complete report
+
+commit 9952242981843d031cfc503044f52a32f098a52e
+Author: Inkstone <Inkstone@MacBook-Inkstone.local>
+Date:   Mon Mar 26 01:51:13 2018 -0600
+
+    FileManager is never destroyed
+
+commit 860b9c8fe575ac9b5c6a1df9eccfa280fbe54cdc
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:49:45 2018 -0600
+
+    Added Sequence diagrams-iteration2.pdf
+
+commit ea634268398589310af17f2411b6907ca45a8e16
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:49:07 2018 -0600
+
+    Update Sequence diagrams-iteration2.xml
+
+commit e26d508a25346e6779fb1a5ed4d3994638801bd3
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:29:25 2018 -0600
+
+    Cropped diagram pdfs
+
+commit 41cab5a22c177548ff242b0c2155c36f470a0c88
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:13:36 2018 -0600
+
+    Added StructuralDiagramIteration_2.png
+
+commit 2023042d644bee801d14566bbace01acd83f17e7
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:12:10 2018 -0600
+
+    Fix StructuralDiagramIteration_2.pdf
+
+commit 5d8fd413f3d9654d68f4785e76c2aaf92f2fda5b
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:11:43 2018 -0600
+
+    Update StructuralDiagramIteration_2.xml
+
+commit 9670d5bca8a0075657deb125d7f888aaf456b136
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:10:46 2018 -0600
+
+    Added StructuralDiagramIteration_2.pdf
+
+commit edae50e4fd951e81d18a86e42cd4dbb9ffb55499
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 01:10:17 2018 -0600
+
+    Update StructuralDiagramIteration_2.xml
+
+commit 0454772e6ddfe7a9e520a95ffd065f647e717db7
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Mon Mar 26 00:52:56 2018 -0600
+
+    Edited sequence diagrams
+    
+    Edited sequence diagrams
+
+commit 227e54bb7feb5761494b46cb50298b06843e2865
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Mon Mar 26 00:50:08 2018 -0600
+
+    Delete mainTypeFinder-Iteration2.pdf
+
+commit 7e88c06437d9cc28c5859ec05f26d6c9700bebc6
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Mon Mar 26 00:49:51 2018 -0600
+
+    Delete JavaRetriever-Iteration2.pdf
+
+commit 5556c64574b8b79fc9ffcbec08119ba4d36a624f
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Mon Mar 26 00:49:36 2018 -0600
+
+    Delete Sequence-Iteration2.xml
+
+commit 252cc0db0f0dc901a186c3813e77fa44f6ed30e2
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 26 00:09:22 2018 -0600
+
+    Improve qualifed name testing
+
+commit 8d19405ff9b07b1747f11de64e670d481b8321c2
+Merge: cf252b8 15a0305
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 23:07:24 2018 -0600
+
+    Merge branch 'master' of https://github.com/EvanQuan/SENG300G2
+
+commit cf252b8eebee83b7297f5530504c44e6e4909e09
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 23:06:22 2018 -0600
+
+    Add JUnitTests for TypeFinder for directories and Jars
+
+commit 15a03051f6741efd138c93ce42e55b574704707c
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 22:22:02 2018 -0600
+
+    Add files via upload
+    
+    added explanation for sequence diagram
+
+commit f5e46477abf634086dd4c15ebc8affecc4699d40
+Author: DESKTOP-F9095HL\Zahra <zahra.alibrahim@gmail.com>
+Date:   Sun Mar 25 21:44:12 2018 -0600
+
+    Added explanation for the structural diagram
+
+commit 1685739086fe71e4874687b3d4653784c5856d25
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 21:30:05 2018 -0600
+
+    remove /bin/ from tracking... again
+
+commit d7e5ef5e76b5240ed08971f4bc95c35e89c453f6
+Merge: 9ef949a cd7ab04
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 20:29:15 2018 -0600
+
+    Merge branch 'master' of github.com:EvanQuan/SENG300G2
+
+commit 9ef949a0c856e88816f8851f8477789432b9800d
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 20:29:08 2018 -0600
+
+    TypeVisitor now accounts for default package imports, improve testing
+
+commit cd7ab04997195299e3b579cf743d8074a952076a
+Author: DESKTOP-F9095HL\Zahra <zahra.alibrahim@gmail.com>
+Date:   Sun Mar 25 19:27:35 2018 -0600
+
+    removed unnecessary things from the diagram (made it more abstract)
+
+commit c62cf24be96ed67488b8ad05e093aba23e7f25ab
+Author: sunahkim15 <sunah.kim@ucalgary.ca>
+Date:   Sun Mar 25 17:40:17 2018 -0600
+
+    state diagram
+
+commit 348637684fd64de5c692c233d90afa8404421e53
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:25:38 2018 -0600
+
+    Added sequence diagram
+    
+    Added Sequence diagram
+
+commit 6ab1607f8bb9707231612d12defb4ebd1f361d1b
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:23:34 2018 -0600
+
+    Delete SequenceDiagram-2
+
+commit ddaaf21cc50a160ae958047451338f8d33bb3070
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:22:53 2018 -0600
+
+    Create SequenceDiagram-2
+
+commit 33c192fdf7e3d5e563a56e720cb9182b7576e4fb
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:21:13 2018 -0600
+
+    Delete mainTypeFinder-Iteration2.pdf
+
+commit 90e7d9420b43d12f32550da2548e0c5e58c503a1
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:20:58 2018 -0600
+
+    Delete Sequence-Iteration2.xml
+
+commit a048b53940e2a2b80bbaab20ed62d9fba6f0653c
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:20:33 2018 -0600
+
+    Delete JavaRetriever-Iteration2.pdf
+
+commit 912d2fcb5876d53c93ad33a1edbd384ebd47af23
+Author: Monaagh <36184007+Monaagh@users.noreply.github.com>
+Date:   Sun Mar 25 17:18:07 2018 -0600
+
+    Add files via upload
+    
+    Added sequence diagram
+
+commit d69e3c454bdd64bf79b3ab15ee7142b4a72d2568
+Merge: a118a7a b12ad90
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 16:22:40 2018 -0600
+
+    Merge branch 'master' of github.com:EvanQuan/SENG300G2
+
+commit a118a7a84cd11c52b89eea0c55c1f5b5806ddbad
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 25 16:05:20 2018 -0600
+
+    Small organizational changes for _TestSuite and FileManager
+
+commit b12ad908d7967075fd47e8c1a5cdb10f731b165a
+Merge: 1bf52c2 9b433a3
+Author: Marcellod1 <marcello.dibenede1@ucalgary.ca>
+Date:   Sun Mar 25 16:02:51 2018 -0600
+
+    Merge pull request #3 from EvanQuan/Marcellod1-patch-1
+    
+    Jars within directories support
+
+commit 9b433a3b115d4118aa3c45b3844ae575eb8862cb
+Author: Marcellod1 <marcello.dibenede1@ucalgary.ca>
+Date:   Sun Mar 25 16:00:17 2018 -0600
+
+    Jars within directories support
+
+commit 1bf52c2dd21e6f72ea8f1e36ff84135b8968e650
+Author: DESKTOP-F9095HL\Zahra <zahra.alibrahim@gmail.com>
+Date:   Fri Mar 23 22:45:52 2018 -0600
+
+    Added Structural diagram
+
+commit 2235df07d00413adf087b8bf3bb3b74838406032
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 23 17:19:07 2018 -0600
+
+    Remove TypeVisitorTestEvan, reorganize
+
+commit 59295182ed0264fdc9921d8bbbe2f82d1ae88bf7
+Author: Inkstone <Inkstone@MacBook-Inkstone.local>
+Date:   Fri Mar 23 17:05:18 2018 -0600
+
+    Removed binary files
+
+commit d4475fa48ba651c3226e1f1e29fdcdb688a33856
+Merge: a4ba707 5b3623b
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 23 16:48:24 2018 -0600
+
+    Merge pull request #2 from EvanQuan/Marcellod1-patch-1
+    
+    jar recursion + multi filetype search
+
+commit a4ba707e9231f27992c911e0ccf036d2388de9c5
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 23 16:28:32 2018 -0600
+
+    Static method calls setting/getting detected properly
+
+commit 84f72982790857b2068491435376484652d97b44
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 23 15:47:37 2018 -0600
+
+    Static field getting/setting both now detected properly
+
+commit 3bf6c74c566d18839233ed3150cc768f00c15b21
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 23 15:21:10 2018 -0600
+
+    Transfer
+
+commit 5b3623b88a07d5b96834fe6dc60df8d3fb2dc222
+Author: Marcellod1 <marcello.dibenede1@ucalgary.ca>
+Date:   Fri Mar 23 13:16:31 2018 -0600
+
+    full file io search for .java files
+
+commit e0b640e3614b0a150e6f6a5f704150021d4e4ff2
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 23 12:53:22 2018 -0600
+
+    Anonymous class declarations now detectable, static field/methods being worked on in Meta test
+
+commit d7dff720272faf3ffb4bc42ba7b0d76d0af73de3
+Author: Marcellod1 <marcello.dibenede1@ucalgary.ca>
+Date:   Fri Mar 23 02:15:18 2018 -0600
+
+    jar recursion + multi filetype search
+
+commit 99e9071f9af8e34ee577bc25c3062ed48e3db538
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Thu Mar 22 22:33:27 2018 -0600
+
+    Fixed some main() things, but not in detail whoops
+
+commit 556d8f55c1d8f15ff5f403acfae5ed06cec7aa9a
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Thu Mar 22 22:23:33 2018 -0600
+
+    JavaFileRetriever and JarRetriever merged into JavaRetriever class (no longer an interface)
+
+commit 61c21f76f38138a6bef48cf5a8dd9b004abe36ab
+Author: Inkstone <Inkstone@MacBook-Inkstone.local>
+Date:   Thu Mar 22 11:56:56 2018 -0600
+
+    Add Report latex, pdf, diagrams from it1
+
+commit 14111a1b5cd89f99fcf92dc4d4d106869b4845b5
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Thu Mar 22 09:20:57 2018 -0600
+
+    Local classes do not have fully qualified names
+
+commit e0d8fae9e9d21af78331c612328a756a0c61ca64
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Wed Mar 21 15:52:47 2018 -0600
+
+    Added declaration test cases for parameterized types
+
+commit 3f1a91a83b1b7d49ca1136a82ab9aeafb4f13e2f
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Wed Mar 21 13:39:59 2018 -0600
+
+    Improve documentation and organization for testing
+
+commit 8d098831ee6bdc3c5b780b35cd535f542d0f9a0f
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Wed Mar 21 11:48:26 2018 -0600
+
+    Testing preVisit() and postVisit()stuff
+
+commit 203f03bcc80e4cf2ef900ef4d523ba33fc26d3e1
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Wed Mar 21 11:38:22 2018 -0600
+
+    Implement Multiset, add BigIncrementer from iteration 1, improve testing, and TypeVisitor
+
+commit 60ef56b13df355a26f312649bcf146b32e895fc3
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Tue Mar 20 22:07:58 2018 -0600
+
+    Add Marcello UCID to README.md
+
+commit 83add952924876019184da33c0f081b86fabc25e
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Tue Mar 20 21:53:51 2018 -0600
+
+    Add UCID to README.md
+
+commit 0d60bc2034552cf4c2f0c6e0dcd2e3ab74bdc916
+Author: Inkstone <Inkstone@MacBook-Inkstone.local>
+Date:   Tue Mar 20 18:40:45 2018 -0600
+
+    Reorganize iteration 1 TypeVisitors, change TypeVisitorTest
+
+commit 63e5328da5f4b89038bd34949ff8f9584038bc8f
+Merge: a6114c2 1d6cd81
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Tue Mar 20 18:31:34 2018 -0600
+
+    Merge pull request #1 from EvanQuan/Marcellod1-patch-1
+    
+    Add files via upload
+
+commit 1d6cd81c4c0a5efeda509000df7f1d9c3456627f
+Merge: ccf462e a6114c2
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Tue Mar 20 18:31:22 2018 -0600
+
+    Merge branch 'master' into Marcellod1-patch-1
+
+commit a6114c2da5d1c0dcabbb66918dd737abcc768a9f
+Author: Inkstone <Inkstone@MacBook-Inkstone.local>
+Date:   Tue Mar 20 17:18:12 2018 -0600
+
+    ImportDeclaration now factors in Wildcard imports
+
+commit 3be66992dc0e1f0ab0093a376ac19d022d67cd7f
+Author: Inkstone <Inkstone@MacBook-Inkstone.local>
+Date:   Tue Mar 20 17:05:50 2018 -0600
+
+    Major bug fixes for TypeVisitor, add more test cases
+
+commit db9a1439fb505d1e0b3c762ff19bedddbd4845ae
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Tue Mar 20 13:51:46 2018 -0600
+
+    Added more test cases, revamping TypeVisitor to merge with TypeVisitor11
+
+commit ccf462ed19a00e46d8e7ab1dd8958e71334b6398
+Author: Marcellod1 <marcello.dibenede1@ucalgary.ca>
+Date:   Tue Mar 20 00:59:44 2018 -0600
+
+    Add files via upload
+
+commit 39f219c86a703663ab2a918c619163ac34bf0bc7
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 17:42:14 2018 -0600
+
+    TypeVisitor does not require external counters for input, TypeFinder initializes 1 static TypeVisitor
+
+commit 41d545bd13d64b58666b2c8f95579d5e4a97fdf9
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 17:28:59 2018 -0600
+
+    TypeFinder now tracks ALL references and declarations of all types within all files recursively and outputs all information
+
+commit 042dd9b6861b2fe89ec8626b3e597c392bc929dd
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 16:00:50 2018 -0600
+
+    Reorganize test stuff
+
+commit e508d9f7c52cd3642e5e0183c5b13d218f006821
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 15:01:57 2018 -0600
+
+    Add Testjar
+
+commit cd072bfe71dff0cb38f07df37df6b4274f1d620b
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 14:59:56 2018 -0600
+
+    remove jar and zip from gitignore
+
+commit 4d8d9ce36464e4954542cd68a2f20d36bb4325fd
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 14:58:34 2018 -0600
+
+    ideas for jar file reading
+
+commit 4d53dd978095f9d4cee8f042b75ddfa8555f8a6d
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 12:16:19 2018 -0600
+
+    Add TypeVisitor test cases for Iteration 1: Group 7 and 11
+
+commit 87cdd592f26d5aa9b02ad71505bdac8972ebb770
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Mon Mar 19 02:25:44 2018 -0600
+
+    Implemented FileManager, File, ClassFile, JavaRetriever, skeleton of TypeFinder, JarRetriever, improved Testing
+
+commit ca990f92424e375ec168e21d892424634340b447
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Sun Mar 18 00:22:34 2018 -0600
+
+    Update README, fix JavaFile, reorganize testing
+
+commit fed25b37f56bfdc2c9627a39369debd367a1c5fe
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 16 17:47:38 2018 -0600
+
+    Add JavaFile test cases
+
+commit 948eb9c95695304acc06f68aeb6a829591c1f23a
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Fri Mar 16 16:56:59 2018 -0600
+
+    Complete recursive directory search, start TestSuite
+
+commit 50b7a71eab659eba4da24a4caae7a676eeddbfd5
+Author: Evan Quan <evanlquan@gmail.com>
+Date:   Thu Mar 15 15:03:17 2018 -0600
+
+    Initial commit
