@@ -28,6 +28,9 @@ public abstract class TypeVisitorTest {
 	public static final int I1G8 = 108;
 	public static final int I1G11 = 111;
 	public static final int I1G12 = 112;
+	// Iteration 2
+	public static final int I2G7 = 207;
+	public static final int I2G9 = 209;
 	protected static String ls = FileManager.lineSeparator;
 	protected static boolean debug = true;
 	
@@ -60,6 +63,12 @@ public abstract class TypeVisitorTest {
 			break;
 		case I1G12:
 			configureParser_1_12(source, type, expectedDeclarationCount, expectedReferenceCount);
+			break;
+		case I2G7:
+			configureParser_2_7(source, type, expectedDeclarationCount, expectedReferenceCount);
+			break;
+		case I2G9:
+			configureParser_2_9(source, type, expectedDeclarationCount, expectedReferenceCount);
 			break;
 		default:
 			configureParserMain(source, type, expectedDeclarationCount, expectedReferenceCount);
@@ -118,6 +127,114 @@ public abstract class TypeVisitorTest {
 		assertEquals(expectedReferenceCount, referenceCount);
 
 	}
+
+	/**
+	 * ITERATION 2 GROUP 7
+	 * Configures ASTParser and visitor for source file
+	 *
+	 * @param source
+	 * @param type
+	 * @param expectedDeclarationCount
+	 * @param expectedReferenceCount
+	 */
+	protected static void configureParser_2_7(String source, String type, int expectedDeclarationCount,
+			int expectedReferenceCount) {
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		parser.setSource(source.toCharArray());
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		parser.setResolveBindings(true);
+		parser.setBindingsRecovery(true);
+		// these are needed for binding to be resolved due to SOURCE is a char[]
+		String[] srcPath = { _TestSuite.SOURCE_DIR };
+		String[] classPath = { _TestSuite.BIN_DIR };
+		parser.setEnvironment(classPath, srcPath, null, true);
+		// parser.setEnvironment(null, null, null, true);
+		// TODO: Fix up the name to be something other than name?
+		parser.setUnitName("Name");
+
+		// ensures nodes are being parsed properly
+		Map<String, String> options = JavaCore.getOptions();
+		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
+		parser.setCompilerOptions(options);
+
+		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+
+		TypeVisitorI2G7 visitor = new TypeVisitorI2G7();
+		cu.accept(visitor);
+
+		int declarationCount = 0;
+		int referenceCount = 0;
+		try {
+			declarationCount = visitor.getDecCount().get(type);
+		} catch (Exception e) {
+
+		}
+		try {
+			referenceCount = visitor.getRefCount().get(type);
+		} catch (Exception e) {
+
+		}
+
+		assertEquals(expectedDeclarationCount, declarationCount);
+		assertEquals(expectedReferenceCount, referenceCount);
+
+	}
+
+	/**
+	 * ITERATION 2 GROUP 9
+	 * Configures ASTParser and visitor for source file
+	 *
+	 * @param source
+	 * @param type
+	 * @param expectedDeclarationCount
+	 * @param expectedReferenceCount
+	 */
+	protected static void configureParser_2_9(String source, String type, int expectedDeclarationCount,
+			int expectedReferenceCount) {
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		parser.setSource(source.toCharArray());
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		parser.setResolveBindings(true);
+		parser.setBindingsRecovery(true);
+		// these are needed for binding to be resolved due to SOURCE is a char[]
+		String[] srcPath = { _TestSuite.SOURCE_DIR };
+		String[] classPath = { _TestSuite.BIN_DIR };
+		parser.setEnvironment(classPath, srcPath, null, true);
+		// parser.setEnvironment(null, null, null, true);
+		// TODO: Fix up the name to be something other than name?
+		parser.setUnitName("Name");
+
+		// ensures nodes are being parsed properly
+		Map<String, String> options = JavaCore.getOptions();
+		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
+		parser.setCompilerOptions(options);
+
+		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+
+		TypeVisitorI2G9 visitor = new TypeVisitorI2G9();
+		cu.accept(visitor);
+
+		int declarationCount = 0;
+		int referenceCount = 0;
+		try {
+			declarationCount = visitor.typeMap.get(type).get(1);
+		} catch (Exception e) {
+
+		}
+		try {
+			referenceCount = visitor.typeMap.get(type).get(0);
+		} catch (Exception e) {
+
+		}
+
+		assertEquals(expectedDeclarationCount, declarationCount);
+		assertEquals(expectedReferenceCount, referenceCount);
+
+	}
 	
 	/**
 	 * ITERATION 1 GROUP 8
@@ -150,7 +267,7 @@ public abstract class TypeVisitorTest {
 
 		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-		TypeVisitor8 visitor = new TypeVisitor8();
+		TypeVisitorI1G8 visitor = new TypeVisitorI1G8();
 		cu.accept(visitor);
 
 		int decl_count = 0;
@@ -203,7 +320,7 @@ public abstract class TypeVisitorTest {
 
 		CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-		TypeVisitor11 visitor = new TypeVisitor11(type);
+		TypeVisitorI1G11 visitor = new TypeVisitorI1G11(type);
 		cu.accept(visitor);
 
 		int declarationCount = 0;
@@ -257,7 +374,7 @@ public abstract class TypeVisitorTest {
 
 		CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-		TypeVisitor12 visitor = new TypeVisitor12(type);
+		TypeVisitorI1G12 visitor = new TypeVisitorI1G12(type);
 		cu.accept(visitor);
 
 		int declarationCount = 0;
@@ -310,7 +427,7 @@ public abstract class TypeVisitorTest {
 
 		CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-		TypeVisitor7 visitor = new TypeVisitor7(cu, type);
+		TypeVisitorI1G7 visitor = new TypeVisitorI1G7(cu, type);
 		cu.accept(visitor);
 
 		int declarationCount = 0;

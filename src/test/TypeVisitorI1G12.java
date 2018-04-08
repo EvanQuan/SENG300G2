@@ -13,13 +13,13 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * Iteration 1 Group 12
  *
  */
-public class TypeVisitor12 extends ASTVisitor {
+public class TypeVisitorI1G12 extends ASTVisitor {
 
 	public int declarationCounter;
 	public int referenceCounter;
 	public String type;
 
-	public TypeVisitor12(String type) {
+	public TypeVisitorI1G12(String type) {
 		this.type = type;
 	}
 

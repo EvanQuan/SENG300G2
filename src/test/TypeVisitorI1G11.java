@@ -17,13 +17,13 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
  * Iteration 1: Group 11
  *
  */
-public class TypeVisitor11 extends ASTVisitor {
+public class TypeVisitorI1G11 extends ASTVisitor {
 
 	public int declarationCount;
 	public int referenceCount;
 	public String javaType;
 
-	public TypeVisitor11(String type) {
+	public TypeVisitorI1G11(String type) {
 		declarationCount = 0;
 		referenceCount = 0;
 		javaType = type;

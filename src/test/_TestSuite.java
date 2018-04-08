@@ -10,9 +10,12 @@ import org.junit.runners.Suite;
 /**
  * All Test suites go here.
  */
-@Suite.SuiteClasses({ FileManagerTest.class, JavaFileTest.class, JavaRetrieverTest.class, PassTest.class, TypeFinderDirectoryTest.class, TypeFinderJarTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
-		TypeVisitorPrimitiveTest.class, TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
+//@Suite.SuiteClasses({ FileManagerTest.class, JavaFileTest.class, JavaRetrieverTest.class, PassTest.class, TypeFinderDirectoryTest.class, TypeFinderJarTest.class, TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
+//		TypeVisitorPrimitiveTest.class, TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 
+// Just visitor
+@Suite.SuiteClasses({ TypeVisitorBuiltInTest.class, TypeVisitorInnerFooTest.class, TypeVisitorFooTest.class,
+		TypeVisitorPrimitiveTest.class, TypeVisitorFooArrayTest.class, TypeVisitorPackageFooTest.class })
 /**
  * Runs all test classes
  *

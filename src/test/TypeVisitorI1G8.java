@@ -43,7 +43,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
  *
  * @since 14 March 2018
  */
-public class TypeVisitor8 extends ASTVisitor {
+public class TypeVisitorI1G8 extends ASTVisitor {
 
 	// Global variables
 	private static ArrayList<String> types;
@@ -103,7 +103,7 @@ public class TypeVisitor8 extends ASTVisitor {
 	 * constructor Intialize the list of types, and the HashMaps for the counters to
 	 * null.
 	 */
-	public TypeVisitor8() {
+	public TypeVisitorI1G8() {
 		// initialize list and counters to null
 		types = new ArrayList<String>();
 		decCounter = new HashMap<String, Integer>();

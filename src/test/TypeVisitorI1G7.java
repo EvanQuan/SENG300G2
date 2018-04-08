@@ -17,14 +17,14 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
  * Iteration 1 Group 7 TypeVisitor
  *
  */
-public class TypeVisitor7 extends ASTVisitor {
+public class TypeVisitorI1G7 extends ASTVisitor {
 
 	public int declarationCount = 0;
 	public int referenceCount = 0;
 	public ASTNode rootNode;
 	public String qualTypeToFind;
 
-	public TypeVisitor7(ASTNode root, String type) {
+	public TypeVisitorI1G7(ASTNode root, String type) {
 
 		this.rootNode = root;
 		this.qualTypeToFind = type;
